@@ -1,0 +1,152 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body{
+    font-family: Helvetica, sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    color: white;
+    background-color: #0e0e0e;
+    width: 100vw;
+    height: 100vh;
+  }
+
+.main-div {
+    height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.fade-in {
+    animation: fadeIn ease 1s;
+    -webkit-animation: fadeIn ease 1s;
+    -moz-animation: fadeIn ease 1s;
+    -o-animation: fadeIn ease 1s;
+    -ms-animation: fadeIn ease 1s;
+}
+
+@keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+
+@-moz-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+
+@-webkit-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+
+@-o-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+
+@-ms-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+
+.animate-bottom {
+    position: relative;
+    -webkit-animation-name: animatebottom;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-fill-mode: forwards;
+    animation-name: animatebottom;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes animatebottom {
+    0% { bottom: 0px }
+    50% { bottom:0px }
+    100% { bottom:50px }
+}
+
+@keyframes animatebottom {
+    0% { bottom: 0px }
+    50% { bottom:0px }
+    100% { bottom:50px }
+}
+
+.fade-in-delay {
+    opacity: 0;
+    display: inline-block;
+    animation: fadeIn ease 2s;
+    animation-delay: 2s;
+    animation-fill-mode: forwards;
+    -webkit-animation: fadeIn ease 2s;
+    -webkit-animation-delay: 2s;
+    -webkit-animation-fill-mode: forwards;
+    -moz-animation: fadeIn ease 2s;
+    -moz-animation-delay: 2s;
+    -o-animation: fadeIn ease 2s;
+    -o-animation-delay: 2s;
+    -ms-animation: fadeIn ease 2s;
+    -ms-animation-delay: 2s;
+}
+
+.text {
+    padding: 2vh;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+a:hover {
+    color: white;
+}
+
+#gSignInWrapper {
+    background: linear-gradient(to bottom, #f18315,#e7391f);
+    padding: 8px;
+    border-radius: 14px;
+}
+#customBtn {
+    display: flex;
+    background: #0e0e0e;
+    width: 235px;
+    border-radius: 8px;
+    justify-content: center;
+    padding: 12px;
+    transition: 0.3s;
+}
+
+#customBtn:hover {
+    background: #2F2F2F;
+}
+
+#customBtn:hover {
+    cursor: pointer;
+}
+
+div.icon {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+span.buttonText {
+    display: inline-flex;
+    align-items: center;
+    min-height: 100%;
+    padding-left: 15px;
+    font-size: 14px;
+    font-weight: 600;
+}

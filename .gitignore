@@ -1,0 +1,6 @@
+/vendor
+.env
+.htaccess
+client_secrets.json
+composer.lock
+test.php
