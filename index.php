@@ -1,22 +1,12 @@
 <?php
 
+require('init.php');
 session_start();
 
-// Autoload files using composer
-require_once __DIR__ . '/vendor/autoload.php';
-
-// Autoloader
-
-function nactitridu($trida) {
-  require("classes/$trida.php");
-}
-
-spl_autoload_register("nactitridu");
-
-// Use this namespace
+// Router namespace
 use Steampixel\Route;
 
-// Add your first route
+// root route
 Route::add('/', function() {
   if(isset($_SESSION['access_token'])) {
     require_once "views/home.php";
