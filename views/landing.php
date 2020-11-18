@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" type="text/css" href="/public/css/landing.css">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <link rel="stylesheet" type="text/css" href="/public/css/landing.css"/>
     <title>evaluační nástroj spšei</title>
     <script src="https://apis.google.com/js/api:client.js"></script>
 </head>
@@ -13,7 +13,7 @@
         <div class="spsei-logo">
             <div class="animate-bottom">
                 <div class="fade-in">
-                    <img class="logo" src="/public/images/spsei-logo.png" alt="logo spšei">
+                    <img class="logo" src="/public/images/spsei-logo.png" alt="logo spšei"/>
                 </div>
                 <div class="fade-in-delay">
                     <p class="text">evaluační nástroj spšei Ostrava</p>
