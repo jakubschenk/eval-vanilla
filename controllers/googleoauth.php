@@ -2,9 +2,6 @@
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
 
-// pripoj databazi pres databazovy wrapper
-Databaze::pripoj('localhost', 'eval_vanilla', 'root', '');
-
 // vytvoreni google_client objektu a konfigurace
 $client = new Google_Client();
 $client->setAuthConfig($_SERVER['DOCUMENT_ROOT'] . '/client_secrets.json');

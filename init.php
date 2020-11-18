@@ -14,3 +14,10 @@ function nactitridu($trida) {
 }
 
 spl_autoload_register("nactitridu");
+
+// pripoj databazi pres databazovy wrapper
+Databaze::pripoj('localhost', 'eval_vanilla', 'root', '');
+session_start();
+
+$config_json = file_get_contents('config.json');
+$cfg = json_decode($config_json, true);

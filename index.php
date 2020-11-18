@@ -1,10 +1,15 @@
 <?php
 
-require('init.php');
-session_start();
+require_once 'init.php';
 
 // Router namespace
 use Steampixel\Route;
+
+Route::pathNotFound(function($path) {
+  header('HTTP/1.0 404 Not Found');
+  echo 'Error 404 :-(<br>';
+  echo 'The requested path "'.$path.'" was not found!';
+});
 
 // root route
 Route::add('/', function() {
@@ -13,6 +18,24 @@ Route::add('/', function() {
   } else {
      require_once 'views/landing.php';
   }
+});
+
+Route::add('/administrace/login', function() {
+  require_once 'controllers/admin/adminlogincontroller.php';
+}, ['get','post']);
+
+if($cfg['adminRegOn']) {
+  Route::add('/administrace/registrace', function() {
+    require_once 'controllers/admin/adminregistercontroller.php';
+  }, ['get','post']);
+}
+
+Route::add('/administrace/logout', function() {
+  require_once 'controllers/admin/admincontroller.php';
+});
+
+Route::add('/administrace', function() {
+  require_once 'controllers/admin/admincontroller.php';
 });
 
 Route::add('/test', function() {
@@ -30,6 +53,8 @@ Route::add('/auth/google', function() {
 Route::add('/callback/google', function() {
   require_once 'views/landing.php';
 });
+
+
 
 // Run the router
 Route::run('/');

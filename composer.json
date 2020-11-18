@@ -1,7 +1,6 @@
 {
     "require": {
-        "steampixel/simple-php-router": "^0.4.1",
         "google/apiclient": "^2.7",
-        "vlucas/phpdotenv": "^5.2"
+        "steampixel/simple-php-router": "^0.4.1"
     }
 }
