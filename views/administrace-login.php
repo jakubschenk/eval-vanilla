@@ -1,5 +1,4 @@
 <?php
-$pagename = "Přihlášení";
 require_once 'templates/header.php';
 
 $config_json = file_get_contents('config.json');

@@ -21,11 +21,13 @@ Route::add('/', function() {
 });
 
 Route::add('/administrace/login', function() {
+  $pageName = "Přihlášení";
   require_once 'controllers/admin/adminlogincontroller.php';
 }, ['get','post']);
 
 if($cfg['adminRegOn']) {
   Route::add('/administrace/registrace', function() {
+    $pageName = "Registrace";
     require_once 'controllers/admin/adminregistercontroller.php';
   }, ['get','post']);
 }
@@ -35,6 +37,7 @@ Route::add('/administrace/logout', function() {
 });
 
 Route::add('/administrace', function() {
+  $pageName = "Administrace";
   require_once 'controllers/admin/admincontroller.php';
 });
 

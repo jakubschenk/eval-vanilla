@@ -2,7 +2,8 @@
 if (isset($_SESSION['admin'])) {
     require_once 'views/administrace.php';
 } else {
-    require_once 'views/administrace-login.php';
+    $redirect_url = '/administrace/login';
+    header('Location: ' . filter_var($redirect_url, FILTER_SANITIZE_URL));
 }
 
 if(isset($_GET['logout'])) {
