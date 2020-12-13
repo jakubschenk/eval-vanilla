@@ -6,8 +6,8 @@ require_once __DIR__ . '/vendor/autoload.php';
 // Autoloader
 
 function nactitridu($trida) {
-  if (preg_match("/controllers$/", $trida)) {
-    require("kontroler/" . $trida . ".php");
+  if (preg_match('/controller$/i', $trida)) {
+    require("controllers/" . $trida . ".php");
   } else {
     require("models/" . $trida . ".php");
   }

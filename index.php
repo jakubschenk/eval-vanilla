@@ -21,24 +21,30 @@ Route::add('/', function() {
 });
 
 Route::add('/administrace/login', function() {
-  $pageName = "Přihlášení";
-  require_once 'controllers/admin/adminlogincontroller.php';
-}, ['get','post']);
+  AdminLoginController::loginAdmin();
+}, 'post');
+
+Route::add('/administrace/login', function() {
+  AdminLoginController::view('administrace-login', "Přihlášení");
+}, 'get');
 
 if($cfg['adminRegOn']) {
   Route::add('/administrace/registrace', function() {
     $pageName = "Registrace";
-    require_once 'controllers/admin/adminregistercontroller.php';
-  }, ['get','post']);
+    AdminRegisterController::view("administrace-registrace", "Registrace");
+  }, 'get');
+  Route::add('/administrace/registrace', function() {
+    AdminRegisterController::registerAdmin();
+  }, 'post');
 }
 
 Route::add('/administrace/logout', function() {
-  require_once 'controllers/admin/admincontroller.php';
+  AdminController::logout();
 });
 
 Route::add('/administrace', function() {
   $pageName = "Administrace";
-  require_once 'controllers/admin/admincontroller.php';
+  AdminController::view("administrace", $pageName);
 });
 
 Route::add('/test', function() {
@@ -46,15 +52,23 @@ Route::add('/test', function() {
 });
 
 Route::add('/unauthorized', function() {
-  require_once 'views/unauthorizeduser.php';
+  $Controller = new Controller();
+  $Controller->view('unauthorized.php', "Nepovoleno!");
 });
 
 Route::add('/auth/google', function() {
-  require_once 'controllers/googleoauth.php';
+  $AuthController = new OAuthController();
+  $AuthController->redirectUserToAuth();
 });
 
-Route::add('/callback/google', function() {
-  require_once 'views/landing.php';
+Route::add('/auth/callback', function() {
+  $AuthController = new OAuthController();
+  $AuthController->authUserFromRedirect();
+});
+
+Route::add('/auth/google/logout', function() {
+  $AuthController = new OAuthController();
+  $AuthController->logout();
 });
 
 
