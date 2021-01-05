@@ -11,7 +11,8 @@ class AdminController extends Controller {
 
     public static function view($name, $title) {
         if (isset($_SESSION['admin'])) {
-            require_once 'views/administrace.php';
+            $pageName = $title;
+            require_once 'views/'. $name . '.php';
         } else {
             $redirect_url = '/administrace/login';
             header('Location: ' . filter_var($redirect_url, FILTER_SANITIZE_URL));

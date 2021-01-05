@@ -14,7 +14,7 @@ $cfg = json_decode($config_json, true);
 </form>
 
 <?php
-if($cfg['adminRegOn']) {
+if($cfg['adminReg']) {
     echo '<a href="/administrace/registrace">Registrovat se</a>';
 }
 if(isset($_GET['badLogin'])) {

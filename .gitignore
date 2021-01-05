@@ -6,3 +6,5 @@ composer.lock
 test.php
 log.txt
 /nbproject/private/
+/import_cache/
+import.xml

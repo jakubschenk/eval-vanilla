@@ -37,7 +37,7 @@ class OAuthController extends Controller {
           $exists = Uzivatel::updateAndCheckUser($user_data); 
           if($exists) {
             $_SESSION['jmeno'] = $exists->getJmeno();
-            file_put_contents('log.txt', time() . ' : logged IN user' . $_SESSION['jmeno']);
+            file_put_contents('log.txt', time() . ' : logged IN user ' . $_SESSION['jmeno']);
             header('Location: ' . filter_var($this->root_uri, FILTER_SANITIZE_URL));  
           } else {
             // redirect je tak rychly ze ten alert nema sanci lmao

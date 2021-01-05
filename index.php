@@ -14,9 +14,9 @@ Route::pathNotFound(function($path) {
 // root route
 Route::add('/', function() {
   if(isset($_SESSION['access_token'])) {
-    require_once "views/home.php";
+    require_once "views/Home.php";
   } else {
-     require_once 'views/landing.php';
+     require_once 'views/LandingPage.php';
   }
 });
 
@@ -25,13 +25,13 @@ Route::add('/administrace/login', function() {
 }, 'post');
 
 Route::add('/administrace/login', function() {
-  AdminLoginController::view('administrace-login', "Přihlášení");
+  AdminLoginController::view('AdministraceLogin', "Přihlášení");
 }, 'get');
 
-if($cfg['adminRegOn']) {
+if($cfg['adminReg']) {
   Route::add('/administrace/registrace', function() {
     $pageName = "Registrace";
-    AdminRegisterController::view("administrace-registrace", "Registrace");
+    AdminRegisterController::view("AdministraceRegistrace", "Registrace");
   }, 'get');
   Route::add('/administrace/registrace', function() {
     AdminRegisterController::registerAdmin();
@@ -44,8 +44,17 @@ Route::add('/administrace/logout', function() {
 
 Route::add('/administrace', function() {
   $pageName = "Administrace";
-  AdminController::view("administrace", $pageName);
+  AdminController::view("Administrace", $pageName);
 });
+
+Route::add('/administrace/import', function() {
+  $pageName = "Administrace";
+  AdminController::view("AdministraceImport", $pageName);
+}, 'get');
+
+Route::add('/administrace/import', function() {
+  $import = new AdminImportController();
+}, 'post');
 
 Route::add('/test', function() {
   require_once 'test.php';
@@ -53,7 +62,7 @@ Route::add('/test', function() {
 
 Route::add('/unauthorized', function() {
   $Controller = new Controller();
-  $Controller->view('unauthorized.php', "Nepovoleno!");
+  $Controller->view('UnauthorizedUser', "Nepovoleno!");
 });
 
 Route::add('/auth/google', function() {
@@ -70,8 +79,6 @@ Route::add('/auth/google/logout', function() {
   $AuthController = new OAuthController();
   $AuthController->logout();
 });
-
-
 
 // Run the router
 Route::run('/');
