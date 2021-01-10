@@ -11,8 +11,4 @@ class Predmet {
         }
     }
 
-    public static function propojPredmetAUcitele($predmet, $ucitel) {
-        //Databaze::dotaz()
-    }
-
 }

@@ -12,17 +12,29 @@ class XMLImport {
         $this->logfile = $log;
         $this->xml_file = $xml_file;
 
-        $this->vytvorRok();
-        $data = $this->nactiXML();
+        if($this->vytvorRok()) {
+            Config::setValueInConfig("skolnirok", $rok);
+            $data = $this->nactiXML();
         
-        $this->nahrajPredmety($data->Predmety);
-        $this->nahrajPredmety($data->Ucitele);
+            $this->nahrajPredmety($data->Predmety);
+            $this->nahrajUcitele($data->Ucitele);
+            $this->nahrajStudenty($data->Studenti);
+
+            fwrite($this->logfile, "IMPORT DOKONCEN");
+            header("Location: /administrace/import?success");
+        } else {
+            fwrite($this->logfile, "SKOLNI ROK JIZ EXISTUJE, UKONCUJI");
+            header('Location: /administrace/import?error');
+        }
     }
 
     private function vytvorRok() {
         $exists = Databaze::dotaz("SELECT * FROM skolniroky WHERE rok LIKE ?", array($this->skolnirok));
         if(!$exists) {
             Databaze::dotaz("INSERT INTO skolniroky(rok) VALUES(?)", array($this->skolnirok));
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -38,12 +50,16 @@ class XMLImport {
     }
 
     private function nahrajStudenty($data) {
-
+        foreach($data->Student as $student) {
+            Student::pridejStudenta($student);
+            Student::propojPredmety($student);
+        }
     }
 
     private function nahrajUcitele($data) {
         foreach($data->Ucitel as $ucitel) {
             Ucitel::pridejUcitele($ucitel);
+            Ucitel::propojPredmety($ucitel);
         }
     }
 

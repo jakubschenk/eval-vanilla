@@ -1,5 +1,13 @@
 <?php
 require_once 'templates/header.php';
+
+if(isset($_GET["error"])) {
+    echo "Chyba pri importu! Zkontrolujte log.";
+    echo '<a href="/administrace/import">Vratit se</a>';
+} else if (isset($_GET["success"])) {
+    echo "Import se zdaril!";
+    echo '<a href="/administrace/">Vratit se do administrace</a>';
+} else {
 ?>
 
 <form action="/administrace/import" method="post" enctype="multipart/form-data">
@@ -11,5 +19,6 @@ require_once 'templates/header.php';
 </form>
 
 <?php
+}
 require_once 'templates/footer.php';
 ?>

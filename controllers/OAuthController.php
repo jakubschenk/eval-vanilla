@@ -42,9 +42,9 @@ class OAuthController extends Controller {
             file_put_contents('log.txt', time() . ' | logged in user: ' . $_SESSION['email']);
             header('Location: ' . filter_var($this->root_uri, FILTER_SANITIZE_URL));  
           } else {
-            // redirect je tak rychly ze ten alert nema sanci lmao
-            echo("<script type='text/javascript'>alert('Nejste v databázi uživatelů!')</script>");
             unset($_SESSION['access_token']);
+            $_SESSION = array();
+            session_destroy();
             $this->client->revokeToken();
             $error_uri = $this->root_uri . '/unauthorized';
             header('Location: ' . filter_var($error_uri, FILTER_SANITIZE_URL));
