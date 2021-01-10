@@ -2,6 +2,18 @@
 
 class Student extends Uzivatel {
 
+    public static function pridejStudenta($data) {
+        $jmeno = $data->Jmeno;
+        $prijmeni = $data->Prijmeni;
+        $titul = $data->Titul;
+        $email = $data->Email;
+        $zkratka = $data->Trida;
+        $skol_rok = Config::getValueFromConfig("skolnirok");
+
+        Databaze::dotaz("INSERT INTO ucitel(id, jmeno, prijmeni, titul, email, skolnirok) VALUES(?,?,?,?,?,?)",
+            array($zkratka, $jmeno, $prijmeni, $titul, $email, $skol_rok));
+    }
+
     // funkce na doplneni gid a avataru uzivatele co se prihlasuje pres gsuite
     public static function updateAndCheckUser($user_data) {
 
