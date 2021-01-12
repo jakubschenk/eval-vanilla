@@ -15,6 +15,7 @@ class Ucitel extends Uzivatel {
             Databaze::dotaz("INSERT INTO ucitele(id, jmeno, prijmeni, titul, email, skolnirok) VALUES(?,?,?,?,?,?)",
                 array($zkratka, $jmeno, $prijmeni, $titul, $email, $skol_rok));
         }
+        Ucitel::propojPredmety($data);
     }
 
     public static function propojPredmety($data) {

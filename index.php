@@ -52,8 +52,9 @@ Route::add('/administrace/import', function() {
   AdminController::view("AdministraceImport", $pageName);
 }, 'get');
 
-Route::add('/administrace/import', function() {
-  $import = new AdminImportController();
+Route::add('/administrace/importing', function() {
+  AdminController::view("AdministraceNahravaniDatabaze", "Nahrávání..");
+  new AdminImportController();
 }, 'post');
 
 Route::add('/test', function() {

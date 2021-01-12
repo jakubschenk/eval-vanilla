@@ -9,15 +9,27 @@ class Student extends Uzivatel {
         $email = $data->Email;
         $skol_rok = Config::getValueFromConfig("skolnirok");
 
-        $exists = Databaze::dotaz("SELECT * FROM studenti WHERE email LIKE ?", array($email));
+        $exists = Databaze::dotaz("SELECT * FROM studenti WHERE email LIKE ? AND skolnirok LIKE ?", array($email, $skol_rok));
         if($exists == null) {
             Databaze::dotaz("INSERT INTO studenti(jmeno, prijmeni, trida, email, skolnirok) VALUES(?,?,?,?,?)",
                 array($jmeno, $prijmeni, $trida, $email, $skol_rok));
+        } else {
+            foreach($exists as $user) {
+                Databaze::dotaz("INSERT INTO duplikaty(email, jmeno, prijmeni, trida, skolnirok) VALUES(?,?,?,?,?)",
+                array($user["email"], $user["jmeno"], $user["prijmeni"], $user["trida"], $user["skolnirok"]));
+            }
+
+            $email = str_replace(".st", (string)rand(0,20) . ".st@spseiostrava.cz", $email);
+            Databaze::dotaz("INSERT INTO studenti(jmeno, prijmeni, trida, email, skolnirok) VALUES(?,?,?,?,?)",
+                array($jmeno, $prijmeni, $trida, $email, $skol_rok));
+            Databaze::dotaz("INSERT INTO duplikaty(email, jmeno, prijmeni, trida, skolnirok) VALUES(?,?,?,?,?)",
+                array($email, $jmeno, $prijmeni, $trida, $skol_rok));
         }
+        Student::propojPredmety($data, $email);
     }
 
-    public static function propojPredmety($data) {
-        $ids = Databaze::dotaz("SELECT id FROM studenti WHERE email LIKE ?", array($data->Email));
+    public static function propojPredmety($data, $email) {
+        $ids = Databaze::dotaz("SELECT id FROM studenti WHERE email LIKE ?", array($email));
         $skol_rok = Config::getValueFromConfig("skolnirok");
         foreach($data->Predmety->Predmet as $predmet) {
             Databaze::dotaz("INSERT INTO studenti_predmety(id_s, id_p, id_u, skolnirok, skupina) VALUES(?,?,?,?,?)",

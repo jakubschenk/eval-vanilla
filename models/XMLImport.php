@@ -20,7 +20,7 @@ class XMLImport {
             $this->nahrajUcitele($data->Ucitele);
             $this->nahrajStudenty($data->Studenti);
 
-            fwrite($this->logfile, "IMPORT DOKONCEN");
+            fwrite($this->logfile, "\n". date("Ymd_h-i-s") . " IMPORT DOKONCEN");
             set_time_limit(120);
             header("Location: /administrace/import?success");
         } else {
@@ -54,14 +54,12 @@ class XMLImport {
     private function nahrajStudenty($data) {
         foreach($data->Student as $student) {
             Student::pridejStudenta($student);
-            Student::propojPredmety($student);
         }
     }
 
     private function nahrajUcitele($data) {
         foreach($data->Ucitel as $ucitel) {
             Ucitel::pridejUcitele($ucitel);
-            Ucitel::propojPredmety($ucitel);
         }
     }
 

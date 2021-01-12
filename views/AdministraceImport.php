@@ -10,7 +10,7 @@ if(isset($_GET["error"])) {
 } else {
 ?>
 
-<form action="/administrace/import" method="post" enctype="multipart/form-data">
+<form action="/administrace/importing" method="post" enctype="multipart/form-data">
     <label for="xmlfile">Zvolte soubor pro XML Import</label>
     <input type="file" name="xmlfile" accept=".xml" required>
     <label for="rok">Zadejte školní rok: </label>
