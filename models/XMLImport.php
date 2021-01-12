@@ -7,7 +7,7 @@ class XMLImport {
     private $xml_file;
 
     public function __construct($xml_file, $rok, $log) {
-
+        set_time_limit(1000);
         $this->skolnirok = $rok;
         $this->logfile = $log;
         $this->xml_file = $xml_file;
@@ -21,9 +21,11 @@ class XMLImport {
             $this->nahrajStudenty($data->Studenti);
 
             fwrite($this->logfile, "IMPORT DOKONCEN");
+            set_time_limit(120);
             header("Location: /administrace/import?success");
         } else {
             fwrite($this->logfile, "SKOLNI ROK JIZ EXISTUJE, UKONCUJI");
+            set_time_limit(120);
             header('Location: /administrace/import?error');
         }
     }

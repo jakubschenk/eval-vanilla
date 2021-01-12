@@ -7,7 +7,7 @@ class Ucitel extends Uzivatel {
         $prijmeni = $data->Prijmeni;
         $titul = $data->Titul;
         $email = $data->Email;
-        $zkratka = $data->Trida;
+        $zkratka = $data->Zkratka;
         $skol_rok = Config::getValueFromConfig("skolnirok");
 
         $exists = Databaze::dotaz("SELECT * FROM ucitele WHERE email LIKE ?", array($email));
@@ -18,7 +18,7 @@ class Ucitel extends Uzivatel {
     }
 
     public static function propojPredmety($data) {
-        $idu = $data->Trida;
+        $idu = $data->Zkratka;
         $skol_rok = Config::getValueFromConfig("skolnirok");
         foreach($data->Predmety->Predmet as $predmet) {
             Databaze::dotaz("INSERT INTO ucitele_predmety(id_u, id_p, trida, skolnirok, skupina) VALUES(?,?,?,?,?)",
