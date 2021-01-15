@@ -19,7 +19,7 @@ class Student extends Uzivatel {
                 array($user["email"], $user["jmeno"], $user["prijmeni"], $user["trida"], $user["skolnirok"]));
             }
 
-            $email = str_replace(".st", (string)rand(0,20) . ".st@spseiostrava.cz", $email);
+            $email = str_replace(".st@spseiostrava.cz", (string)rand(0,20) . ".st@spseiostrava.cz", $email);
             Databaze::dotaz("INSERT INTO studenti(jmeno, prijmeni, trida, email, skolnirok) VALUES(?,?,?,?,?)",
                 array($jmeno, $prijmeni, $trida, $email, $skol_rok));
             Databaze::dotaz("INSERT INTO duplikaty(email, jmeno, prijmeni, trida, skolnirok) VALUES(?,?,?,?,?)",
