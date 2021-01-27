@@ -15,7 +15,7 @@ abstract class Uzivatel {
         $this->obrazek = $user_data['picture'];
         $this->g_id = $user_data['id'];
         $this->typ = $this->typChooser($this->email);
-        $this->skolnirok = Config::getValueFromConfig("skolnirok");
+        $this->skolnirok = Config::getValueFromConfig("skolnirok_id");
     }
 
     public static function typChooser($mail) {
@@ -40,6 +40,11 @@ abstract class Uzivatel {
     }
     public function getGid() {
         return $this->g_id;
+    }
+
+    public static function getId($email) {
+        $id = Databaze::dotaz("SELECT ids FROM studenti WHERE email LIKE ?", array($email));
+        return $id;
     }
 
     abstract public static function updateAndCheckUser($user_data);

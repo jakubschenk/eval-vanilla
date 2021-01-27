@@ -3,6 +3,7 @@
 class XMLImport {
 
     private $skolnirok;
+    private $skolnirok_id;
     private $logfile;
     private $xml_file;
 
@@ -12,8 +13,9 @@ class XMLImport {
         $this->logfile = $log;
         $this->xml_file = $xml_file;
 
-        if($this->vytvorRok()) {
-            Config::setValueInConfig("skolnirok", $rok);
+        if(($this->skolnirok_id = $this->vytvorRok()) != null) {
+            Config::setValueInConfig("skolnirok", $this->skolnirok);
+            Config::setValueInConfig("skolnirok_id", $this->skolnirok_id);
             $data = $this->nactiXML();
         
             $this->nahrajPredmety($data->Predmety);
@@ -34,9 +36,10 @@ class XMLImport {
         $exists = Databaze::dotaz("SELECT * FROM skolniroky WHERE rok LIKE ?", array($this->skolnirok));
         if(!$exists) {
             Databaze::dotaz("INSERT INTO skolniroky(rok) VALUES(?)", array($this->skolnirok));
-            return true;
+            $id = Databaze::dotaz("SELECT idr FROM skolniroky WHERE rok LIKE ?", array($this->skolnirok));
+            return $id[0][0];
         } else {
-            return false;
+            return null;
         }
     }
 

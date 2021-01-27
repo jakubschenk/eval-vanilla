@@ -14,7 +14,7 @@ Route::pathNotFound(function($path) {
 // root route
 Route::add('/', function() {
   if(isset($_SESSION['access_token'])) {
-    require_once "views/Home.php";
+    PredmetyController::view("Predmety", "eval");
   } else {
      require_once 'views/LandingPage.php';
   }

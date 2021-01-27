@@ -11,4 +11,14 @@ class Predmet {
         }
     }
 
+    public static function vratPredmetyProStudenta($id) {
+        $predmety = Databaze::dotaz("SELECT * FROM studenti_predmety WHERE id_s LIKE ?", array($id));
+        return $predmety;
+    }
+
+    public static function vratPredmetyProUcitele($id) {
+        $predmety = Databaze::dotaz("SELECT * FROM ucitele_predmety WHERE id_u LIKE ?", array($id));
+        return $predmety;
+    }
+
 }

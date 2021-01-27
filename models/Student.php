@@ -7,7 +7,7 @@ class Student extends Uzivatel {
         $prijmeni = $data->Prijmeni;
         $trida = $data->Trida;
         $email = $data->Email;
-        $skol_rok = Config::getValueFromConfig("skolnirok");
+        $skol_rok = Config::getValueFromConfig("skolnirok_id");
 
         $exists = Databaze::dotaz("SELECT * FROM studenti WHERE email LIKE ? AND skolnirok LIKE ?", array($email, $skol_rok));
         if($exists == null) {
@@ -30,7 +30,7 @@ class Student extends Uzivatel {
 
     public static function propojPredmety($data, $email) {
         $ids = Databaze::dotaz("SELECT id FROM studenti WHERE email LIKE ?", array($email));
-        $skol_rok = Config::getValueFromConfig("skolnirok");
+        $skol_rok = Config::getValueFromConfig("skolnirok_id");
         foreach($data->Predmety->Predmet as $predmet) {
             Databaze::dotaz("INSERT INTO studenti_predmety(id_s, id_p, id_u, skolnirok, skupina) VALUES(?,?,?,?,?)",
                 array($ids[0]["id"], $predmet->Zkratka, $predmet->Ucitel, $skol_rok, $predmet->Skupina));
@@ -42,7 +42,7 @@ class Student extends Uzivatel {
 
         $student = new Student($user_data);
         
-        $exists = Databaze::dotaz("SELECT * FROM studenti WHERE email LIKE ? AND skolnirok LIKE ?", array($student->getEmail(), Config::getValueFromConfig("skolnirok")));
+        $exists = Databaze::dotaz("SELECT * FROM studenti WHERE email LIKE ? AND skolnirok LIKE ?", array($student->getEmail(), Config::getValueFromConfig("skolnirok_id")));
         // prvni se musime podivat, jestli je uzivatel v seznamu uzivatelu
         if($exists) {
             $databaze_profil = Databaze::dotaz("SELECT * FROM studenti WHERE gid LIKE ?", array($student->getGid()));
@@ -51,10 +51,17 @@ class Student extends Uzivatel {
                 Databaze::vloz("UPDATE studenti SET gid = ?, avatar = ? WHERE email LIKE ?",
                     array($student->getGid(), $student->getObrazek(), $student->getEmail()));
             }
+            $_SESSION["typ"] = 2;
             return $student;
         } else {
             return null;  
         }
     }
+
+    public static function getId($email) {
+        $id = Databaze::dotaz("SELECT id FROM studenti WHERE email LIKE ?", array($email));
+        return $id[0][0];
+    }
+
 
 }

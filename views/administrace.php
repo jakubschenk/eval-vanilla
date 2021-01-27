@@ -1,5 +1,6 @@
 <?php
 require_once 'templates/header.php';
+
 ?>
 
 <p>vitej admine <?php echo($_SESSION['login']); ?></p>

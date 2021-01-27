@@ -8,7 +8,7 @@ class Ucitel extends Uzivatel {
         $titul = $data->Titul;
         $email = $data->Email;
         $zkratka = $data->Zkratka;
-        $skol_rok = Config::getValueFromConfig("skolnirok");
+        $skol_rok = Config::getValueFromConfig("skolnirok_id");
 
         $exists = Databaze::dotaz("SELECT * FROM ucitele WHERE email LIKE ?", array($email));
         if($exists == null) {
@@ -20,7 +20,7 @@ class Ucitel extends Uzivatel {
 
     public static function propojPredmety($data) {
         $idu = $data->Zkratka;
-        $skol_rok = Config::getValueFromConfig("skolnirok");
+        $skol_rok = Config::getValueFromConfig("skolnirok_id");
         foreach($data->Predmety->Predmet as $predmet) {
             Databaze::dotaz("INSERT INTO ucitele_predmety(id_u, id_p, trida, skolnirok, skupina) VALUES(?,?,?,?,?)",
                 array($idu, $predmet->Zkratka, $predmet->Trida, $skol_rok, $predmet->Skupina));
@@ -40,9 +40,16 @@ class Ucitel extends Uzivatel {
                 Databaze::vloz("INSERT INTO ucitele(gid, avatar) VALUES(?,?)",
                     array($ucitel->getGid(), $ucitel->getObrazek()));
             }
+            $_SESSION["typ"] = 1;
             return $ucitel;
         } else {
             return null;  
         }
     }
+
+    public static function getId($email) {
+        $id = Databaze::dotaz("SELECT id FROM ucitele WHERE email LIKE ?", array($email));
+        return $id[0][0];
+    }
+
 }
