@@ -42,10 +42,5 @@ abstract class Uzivatel {
         return $this->g_id;
     }
 
-    public static function getId($email) {
-        $id = Databaze::dotaz("SELECT ids FROM studenti WHERE email LIKE ?", array($email));
-        return $id;
-    }
-
     abstract public static function updateAndCheckUser($user_data);
 }

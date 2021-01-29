@@ -12,7 +12,13 @@ class Predmet {
     }
 
     public static function vratPredmetyProStudenta($id) {
-        $predmety = Databaze::dotaz("SELECT * FROM studenti_predmety WHERE id_s LIKE ?", array($id));
+        $predmety = Databaze::dotaz
+        ("SELECT p.nazev as nazev, sp.id_p as zkratka, sp.skupina as skupina , concat(u.titul, ' ', u.jmeno, ' ', u.prijmeni) as ucitel
+        from studenti_predmety sp
+        inner join predmety p on sp.id_p = p.zkratka
+        inner join ucitele u on sp.id_u = u.id
+        where sp.id_s = ?",
+        array($id));
         return $predmety;
     }
 

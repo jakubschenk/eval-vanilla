@@ -20,6 +20,10 @@ Route::add('/', function() {
   }
 });
 
+Route::add('/p/([a-zA-Z]*)', function($predmet) {
+  new OtazkyController($predmet); 
+});
+
 Route::add('/administrace/login', function() {
   AdminLoginController::loginAdmin();
 }, 'post');
