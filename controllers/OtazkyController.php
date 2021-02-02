@@ -20,7 +20,7 @@ class OtazkyController extends Controller {
         }
         
         if($shoda) {
-            echo "Zobrazuji otazky pro id ". $this->id . ' v predmetu '. $this->predmet;
+            Otazka::vypisOtazky(Otazka::vratOtazky());
         } else {
             echo "neplatny predmet";
         }
