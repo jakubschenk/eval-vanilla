@@ -66,6 +66,6 @@ class AdminOtazkyEditController
     }
 
     public static function zapisUpravenouOtazku($data) {
-
+        @Otazka::aktualizujOtazkuStudenta($data["id"], $data["otazka"], $data["druh"], Config::getValueFromConfig("skolnirok_id"));
     }
 }

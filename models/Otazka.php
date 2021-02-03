@@ -61,6 +61,6 @@ class Otazka {
     }
 
     public static function aktualizujOtazkuStudenta($id, $otazka, $druh, $skolnirok) {
-        Databaze::dotaz("UPDATE TABLE otazky_pro_studenty SET otazka = ?, druh = ? WHERE skolnirok like ? and id like ?", array($otazka, $druh, $skolnirok, $id));
+        Databaze::dotaz("UPDATE otazky_pro_studenty SET otazka = ?, druh = ? WHERE skolnirok like ? and id like ?", array($otazka, $druh, $skolnirok, $id));
     }
 }

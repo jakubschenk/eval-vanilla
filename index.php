@@ -32,12 +32,10 @@ Route::add('/administrace/([a-z]*)/otazky/upravit', function($druh) {
   AdminController::view("AdministraceOtazky", "Administrace", array($druh));
 });
 
-Route::add('/administrace/([a-z]*)/otazky/ulozitOtazku', function($druh) {
-  $json = file_get_contents('php://input');
-  $response = json_decode($json, true);
-  AdminOtazkyEditController::zapisUpravenouOtazku($response, $druh);
-  print('{}');
-});
+Route::add('/administrace/([a-z]*)/otazky/ulozit', function($druh) {
+  $input = json_decode(file_get_contents('php://input'), true);
+  AdminOtazkyEditController::zapisUpravenouOtazku($input, $druh);
+}, 'post');
 
 Route::add('/administrace/upravit/uzivatele/([a-z]*)', function($druh) {
   new AdminUzivateleEditController($druh);
