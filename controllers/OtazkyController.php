@@ -17,13 +17,14 @@ class OtazkyController extends Controller {
                     break;
                 }
             }
+            if($shoda) {
+                Otazka::vypisOtazky(Otazka::vratOtazkyProStudenty());
+            } else {
+                echo "neplatny predmet";
+            }
         }
         
-        if($shoda) {
-            Otazka::vypisOtazky(Otazka::vratOtazky());
-        } else {
-            echo "neplatny predmet";
-        }
+        
 
     }
 }

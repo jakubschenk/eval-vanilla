@@ -25,20 +25,20 @@ class Otazka {
         echo '<div class="otazka" id="' . $this->id . '">';
         if($this->druh == "otevřená") {
             echo '<p class="textOtazky">' . $this->text . '</p>';
-            echo '<input type="text" id="otazka[' . $this->id .']" name="otazka[' . $this->id .']">';
+            echo '<input type="text" id="' . $this->id .'" name="' . $this->id .'">';
         } else if ($this->druh == "výběrová") {
             echo '<p class="textOtazky">' . $this->id . '. ' . $this->text . '</p>';
             echo '<span class="levytext">' . $this->leva . '</span>';
-            echo '<input type="radio" id="otazka[' . $this->id .'][1]" name="otazka[' . $this->id .']" value="1">';
-            echo '<label for="otazka[' . $this->id .'][1]">1</label>';
-            echo '<input type="radio" id="otazka[' . $this->id .'][2]" name="otazka[' . $this->id .']" value="2">';
-            echo '<label for="otazka[' . $this->id .'][2]">2</label>';
-            echo '<input type="radio" id="otazka[' . $this->id .'][3]" name="otazka[' . $this->id .']" value="3">';
-            echo '<label for="otazka[' . $this->id .'][3]">3</label>';
-            echo '<input type="radio" id="otazka[' . $this->id .'][4]" name="otazka[' . $this->id .']" value="4">';
-            echo '<label for="otazka[' . $this->id .'][4]">4</label>';
-            echo '<input type="radio" id="otazka[' . $this->id .'][5]" name="otazka[' . $this->id .']" value="5">';
-            echo '<label for="otazka[' . $this->id .'][5]">5</label>';
+            echo '<input type="radio" id="' . $this->id .'" name="' . $this->id .'" value="1">';
+            echo '<label for="' . $this->id .'">1</label>';
+            echo '<input type="radio" id="' . $this->id .'" name="' . $this->id .'" value="2">';
+            echo '<label for="' . $this->id .'">2</label>';
+            echo '<input type="radio" id="' . $this->id .'" name="' . $this->id .'" value="3">';
+            echo '<label for="' . $this->id .'">3</label>';
+            echo '<input type="radio" id="' . $this->id .'" name="' . $this->id .'" value="4">';
+            echo '<label for="' . $this->id .'">4</label>';
+            echo '<input type="radio" id="' . $this->id .'" name="' . $this->id .'" value="5">';
+            echo '<label for="' . $this->id .'">5</label>';
             echo '<span class="pravytext">' . $this->prava . '</span>';
         }
         echo '</div>';
@@ -51,8 +51,16 @@ class Otazka {
         }
     }
 
-    public static function vratOtazky() {
+    public static function vratOtazkyProStudenty() {
         $otazky = Databaze::dotaz("SELECT * FROM otazky_pro_studenty WHERE skolnirok LIKE ?", array(Config::getValueFromConfig("skolnirok_id")));
         return $otazky;
+    }
+    public static function vratOtazkyProUcitele() {
+        $otazky = Databaze::dotaz("SELECT * FROM otazky_pro_ucitele WHERE skolnirok LIKE ?", array(Config::getValueFromConfig("skolnirok_id")));
+        return $otazky;
+    }
+
+    public static function aktualizujOtazkuStudenta($id, $otazka, $druh, $skolnirok) {
+        Databaze::dotaz("UPDATE TABLE otazky_pro_studenty SET otazka = ?, druh = ? WHERE skolnirok like ? and id like ?", array($otazka, $druh, $skolnirok, $id));
     }
 }

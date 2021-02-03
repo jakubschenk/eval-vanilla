@@ -9,7 +9,7 @@ class AdminController extends Controller {
         header('Location: ' . filter_var($redirect_url, FILTER_SANITIZE_URL));
     }
 
-    public static function view($name, $title) {
+    public static function view($name, $title, array $args) {
         if (isset($_SESSION['admin'])) {
             $pageName = $title;
             require_once 'views/'. $name . '.php';

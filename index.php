@@ -14,7 +14,7 @@ Route::pathNotFound(function($path) {
 // root route
 Route::add('/', function() {
   if(isset($_SESSION['access_token'])) {
-    PredmetyController::view("Predmety", "eval");
+    PredmetyController::view("Predmety", "eval", array());
   } else {
      require_once 'views/LandingPage.php';
   }
@@ -28,14 +28,29 @@ Route::add('/administrace/login', function() {
   AdminLoginController::loginAdmin();
 }, 'post');
 
+Route::add('/administrace/([a-z]*)/otazky/upravit', function($druh) {
+  AdminController::view("AdministraceOtazky", "Administrace", array($druh));
+});
+
+Route::add('/administrace/([a-z]*)/otazky/ulozitOtazku', function($druh) {
+  $json = file_get_contents('php://input');
+  $response = json_decode($json, true);
+  AdminOtazkyEditController::zapisUpravenouOtazku($response, $druh);
+  print('{}');
+});
+
+Route::add('/administrace/upravit/uzivatele/([a-z]*)', function($druh) {
+  new AdminUzivateleEditController($druh);
+});
+
 Route::add('/administrace/login', function() {
-  AdminLoginController::view('AdministraceLogin', "Přihlášení");
+  AdminLoginController::view('AdministraceLogin', "Přihlášení", array());
 }, 'get');
 
 if($cfg['adminReg']) {
   Route::add('/administrace/registrace', function() {
     $pageName = "Registrace";
-    AdminRegisterController::view("AdministraceRegistrace", "Registrace");
+    AdminRegisterController::view("AdministraceRegistrace", "Registrace", array());
   }, 'get');
   Route::add('/administrace/registrace', function() {
     AdminRegisterController::registerAdmin();
@@ -48,16 +63,16 @@ Route::add('/administrace/logout', function() {
 
 Route::add('/administrace', function() {
   $pageName = "Administrace";
-  AdminController::view("Administrace", $pageName);
+  AdminController::view("Administrace", $pageName, array());
 });
 
 Route::add('/administrace/import', function() {
   $pageName = "Administrace";
-  AdminController::view("AdministraceImport", $pageName);
+  AdminController::view("AdministraceImport", $pageName, array());
 }, 'get');
 
 Route::add('/administrace/importing', function() {
-  AdminController::view("AdministraceNahravaniDatabaze", "Nahrávání..");
+  AdminController::view("AdministraceNahravaniDatabaze", "Nahrávání..", array());
   new AdminImportController();
 }, 'post');
 
@@ -67,7 +82,7 @@ Route::add('/test', function() {
 
 Route::add('/unauthorized', function() {
   $Controller = new Controller();
-  $Controller->view('UnauthorizedUser', "Nepovoleno!");
+  $Controller->view('UnauthorizedUser', "Nepovoleno!", array());
 });
 
 Route::add('/auth/google', function() {
