@@ -6,7 +6,15 @@ class Controller {
 
     public static function view($name, $title, array $args) {
         $pageName = $title;
+        require_once 'templates/header.php';
         require_once 'views/'.$name.'.php';
+        require_once 'templates/footer.php';
     }   
     
+    public static function viewStatic($name, $title) {
+        $pageName = $title;
+        require_once 'templates/header.php';
+        require_once 'views/'.$name.'.php';
+        require_once 'templates/footer.php';
+    }   
 }

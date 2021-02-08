@@ -6,7 +6,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <?php
         if(!empty($stylesheets)) {
-            foreach($stylesheets as $stlyesheet) {
+            foreach($stylesheets as $styleesheet) {
                 echo('<link rel="stylesheet" type="text/css" href="/public/css/' . $stylesheet . '.css"/>');
             }
         }

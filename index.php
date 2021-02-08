@@ -1,8 +1,6 @@
 <?php
 
 require_once 'init.php';
-
-// Router namespace
 use Steampixel\Route;
 
 Route::pathNotFound(function($path) {
@@ -11,7 +9,6 @@ Route::pathNotFound(function($path) {
   echo 'The requested path "'.$path.'" was not found!';
 });
 
-// root route
 Route::add('/', function() {
   if(isset($_SESSION['access_token'])) {
     PredmetyController::view("Predmety", "eval", array());
@@ -84,8 +81,7 @@ Route::add('/test', function() {
 });
 
 Route::add('/unauthorized', function() {
-  $Controller = new Controller();
-  $Controller->view('UnauthorizedUser', "Nepovoleno!", array());
+  Controller::viewStatic('UnauthorizedUser', "Nepovoleno!");
 });
 
 Route::add('/auth/google', function() {
@@ -103,27 +99,4 @@ Route::add('/auth/google/logout', function() {
   $AuthController->logout();
 });
 
-Route::add('/js/([a-z][A-Z]*.js)', function($nazev) {
-  $location = "public/js/" . $nazev;
-  if (file_exists($location)) {
-    header($_SERVER["SERVER_PROTOCOL"] . " 200 OK");
-    readfile($location);
-    die();        
-  } else {
-    die("Error: File not found.");
-  } 
-});
-
-Route::add('/css/([a-z][A-Z]*.css)', function($nazev) {
-  $location = "public/css/" . $nazev;
-  if (file_exists($location)) {
-    header($_SERVER["SERVER_PROTOCOL"] . " 200 OK");
-    readfile($location);
-    die();        
-  } else {
-    die("Error: File not found.");
-  } 
-});
-
-// Run the router
 Route::run('/');
