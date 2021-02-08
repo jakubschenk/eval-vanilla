@@ -63,4 +63,15 @@ class Otazka {
     public static function aktualizujOtazkuStudenta($id, $otazka, $druh, $skolnirok) {
         Databaze::dotaz("UPDATE otazky_pro_studenty SET otazka = ?, druh = ? WHERE skolnirok like ? and id like ?", array($otazka, $druh, $skolnirok, $id));
     }
+
+    public static function aktualizujOtazkuUcitele($id, $otazka, $druh, $skolnirok) {
+        Databaze::dotaz("UPDATE otazky_pro_ucitele SET otazka = ?, druh = ? WHERE skolnirok like ? and id like ?", array($otazka, $druh, $skolnirok, $id));
+    }
+
+    public static function pridejOtazkuStudentovi($id, $otazka, $druh, $skolnirok) {
+        Databaze::dotaz("INSERT INTO otazky_pro_studenty(id, otazka, druh, skolnirok) VALUES(?, ?, ?, ?)", array($id, $otazka, $druh, $skolnirok));
+    }
+    public static function pridejOtazkuUciteli($id, $otazka, $druh, $skolnirok) {
+        Databaze::dotaz("INSERT INTO otazky_pro_ucitele(id, otazka, druh, skolnirok) VALUES(?, ?, ?, ?)", array($id, $otazka, $druh, $skolnirok));
+    }
 }

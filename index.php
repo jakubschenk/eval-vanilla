@@ -37,6 +37,11 @@ Route::add('/administrace/([a-z]*)/otazky/ulozit', function($druh) {
   AdminOtazkyEditController::zapisUpravenouOtazku($input, $druh);
 }, 'post');
 
+Route::add('/administrace/([a-z]*)/otazky/pridat', function($druh) {
+  $input = json_decode(file_get_contents('php://input'), true);
+  AdminOtazkyEditController::pridejNovouOtazku($input, $druh);
+}, 'post');
+
 Route::add('/administrace/upravit/uzivatele/([a-z]*)', function($druh) {
   new AdminUzivateleEditController($druh);
 });
@@ -96,6 +101,28 @@ Route::add('/auth/callback', function() {
 Route::add('/auth/google/logout', function() {
   $AuthController = new OAuthController();
   $AuthController->logout();
+});
+
+Route::add('/js/([a-z][A-Z]*.js)', function($nazev) {
+  $location = "public/js/" . $nazev;
+  if (file_exists($location)) {
+    header($_SERVER["SERVER_PROTOCOL"] . " 200 OK");
+    readfile($location);
+    die();        
+  } else {
+    die("Error: File not found.");
+  } 
+});
+
+Route::add('/css/([a-z][A-Z]*.css)', function($nazev) {
+  $location = "public/css/" . $nazev;
+  if (file_exists($location)) {
+    header($_SERVER["SERVER_PROTOCOL"] . " 200 OK");
+    readfile($location);
+    die();        
+  } else {
+    die("Error: File not found.");
+  } 
 });
 
 // Run the router
