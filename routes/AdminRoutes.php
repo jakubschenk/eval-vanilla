@@ -19,8 +19,14 @@ Route::add('/administrace/([a-z]*)/otazky/pridat', function($druh) {
     $input = json_decode(file_get_contents('php://input'), true);
     AdminOtazkyEditController::pridejNovouOtazku($input, $druh);
 }, 'post');
+
+Route::add('/administrace/([a-z]*)/otazky/smazat', function($druh) {
+    $input = json_decode(file_get_contents('php://input'), true);
+    $id = $input["id"];
+    AdminOtazkyEditController::smazOtazku($id, $druh);
+}, 'post');
   
-Route::add('/administrace/upravit/uzivatele/([a-z]*)', function($druh) {
+Route::add('/administrace/([a-z]*)/uzivatele/upravit', function($druh) {
     new AdminUzivateleEditController($druh);
 });
   

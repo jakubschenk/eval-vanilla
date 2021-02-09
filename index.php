@@ -5,8 +5,7 @@ use Steampixel\Route;
 
 Route::pathNotFound(function($path) {
   header('HTTP/1.0 404 Not Found');
-  echo 'Error 404 :-(<br>';
-  echo 'The requested path "'.$path.'" was not found!';
+  Controller::viewStatic("404");
 });
 
 require_once 'routes/AdminRoutes.php';

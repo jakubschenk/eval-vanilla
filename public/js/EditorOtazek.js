@@ -2,6 +2,7 @@ class EditorOtazek {
     constructor(id) {
         this.select = document.getElementById("vyberDruhu" + id);
         this.upravitBtn = document.getElementById("editBtn" + id);
+        this.delBtn = document.getElementById("delBtn" + id);
         this.ulozBtn = document.getElementById("ulozitOtazkuBtn" + id);
         this.druh = document.getElementById("druh" + id);
         this.select = document.getElementById("vyberDruhu" + id);
@@ -44,7 +45,27 @@ class EditorOtazek {
         }
     }
 
-    async ulozOtazku(id) {
+    async smazOtazku() {
+        var otazka = {
+            "id": this.id
+        }
+
+        await fetch('smazat', {
+            method: "POST",
+            mode: "same-origin",
+            credentials: "same-origin",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(otazka)
+        })
+        .then(response => console.log(response))
+        .catch(err => console.log(err));
+
+        location.reload();
+    }
+
+    async ulozOtazku() {
 
         if (this.druh.innerText == "otevřená") {
             var otazka = {

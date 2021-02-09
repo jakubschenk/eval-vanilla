@@ -11,10 +11,7 @@ class Controller {
         require_once 'templates/footer.php';
     }   
     
-    public static function viewStatic($name, $title) {
-        $pageName = $title;
-        require_once 'templates/header.php';
+    public static function viewStatic($name) {
         require_once 'views/'.$name.'.php';
-        require_once 'templates/footer.php';
     }   
 }

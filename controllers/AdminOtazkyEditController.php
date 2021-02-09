@@ -21,6 +21,7 @@ class AdminOtazkyEditController
 
     private function vypisOtazky($otazky)
     {
+        echo '<script>var pocetOtazek = ' . count($otazky) . ';var otazkyIds = [];</script>';
         echo '<div class="pridatOtazku" id="pridatOtazku">';
         echo '<button id="pridatOtazkuBtn" onclick="EditorOtazek.zobrazPridaniOtazky();" value="Nová otázka">Přidat novou otázku</button>';
         echo '<textarea type="text" id="textOtazkyInputNova" name="textOtazkyInputNova" hidden></textarea>';
@@ -33,7 +34,7 @@ class AdminOtazkyEditController
         echo '</select>';
         echo '<button id="pridatNovaBtn" onclick="EditorOtazek.pridatOtazku();" value="přidat" hidden>Přidat!</button>';
         echo '</div>';
-        foreach ($otazky as $otazka) {
+        foreach ($otazky as $otazka) {       
             $id = $otazka["id"];
             $druh = $otazka["druh"];
             echo '<div class="otazka" id="div' . $id . '">';
@@ -71,8 +72,10 @@ class AdminOtazkyEditController
                 echo '</select>';
             }
             echo '<button id="editBtn' . $id . '" onclick="editory['. $id . '].upravOtazku();">Upravit otázku</button>';
+            echo '<button id="delBtn' . $id . '" onclick="editory['. $id . '].smazOtazku();">Smazat otázku</button>';
             echo '<button id="ulozitOtazkuBtn' . $id . '" onclick="editory['. $id . '].ulozOtazku();" hidden>Uložit otázku</button>';
             echo '</div>';
+            echo '<script>otazkyIds.push('.$id.')</script>';
         }
         echo '<script>var pocetOtazek = ' . count($otazky) . ';</script>';
     }
@@ -88,13 +91,28 @@ class AdminOtazkyEditController
         $skolrok = Config::getValueFromConfig("skolnirok_id");
         if($druh == "student") {
             $id = Databaze::dotaz("SELECT id FROM otazky_pro_studenty WHERE skolnirok LIKE ? ORDER BY id DESC LIMIT 1", array($skolrok));
-            print_r($id);
-            $id = $id[0][0] + 1;
+            if($id != null)
+                $id = $id[0][0] + 1;
+            else
+                $id = 1;
             Otazka::pridejOtazkuStudentovi($id, $data["text"], $data["druh"], $skolrok);
         } else if ($druh == "ucitel") {
             $id = Databaze::dotaz("SELECT id FROM otazky_pro_ucitele WHERE skolnirok LIKE ? ORDER BY id DESC LIMIT 1", array($skolrok));
-            $id = $id[0][0] + 1;
+            if($id != null)
+                $id = $id[0][0] + 1;
+            else
+                $id = 1;
             Otazka::pridejOtazkuUciteli($id, $data["text"], $data["druh"], $skolrok);  
         }   
+    }
+
+    public static function smazOtazku($id, $druh) {
+        $skolrok = Config::getValueFromConfig("skolnirok_id");
+        if($druh == "ucitel") {
+            Databaze::dotaz("DELETE FROM otazky_pro_ucitele WHERE skolnirok = ? AND id = ?", array($skolrok, $id));
+        } else if($druh == "student") {
+            Databaze::dotaz("DELETE FROM otazky_pro_studenty WHERE skolnirok = ? AND id = ?", array($skolrok, $id));
+        }
+        
     }
 }
