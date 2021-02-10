@@ -7,9 +7,9 @@ $cfg = json_decode($config_json, true);
 
 <form action="/administrace/login" method="post">
     <label for="login">Jméno: </label>
-    <input type="text" name="login" required>
+    <input type="text" id="login" name="login" required>
     <label for="password">Heslo: </label>
-    <input type="password" name="password" required>
+    <input type="password" id="password" name="password" required>
     <input type="submit" value="Přihlásit">
 </form>
 
