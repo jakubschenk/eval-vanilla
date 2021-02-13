@@ -55,8 +55,42 @@ class XMLImport {
     }
 
     private function nahrajStudenty($data) {
+        $nalezy = 0;
+        $duplikaty = array();
+        $skolrok = Config::getValueFromConfig("skolnirok_id");
+
         foreach($data->Student as $student) {
-            Student::pridejStudenta($student);
+            foreach($data->Student as $hledanyDuplikat) {
+                if(strcmp($student->Email,$hledanyDuplikat->Email) == 0) {
+                    $nalezy++;
+                    fwrite($this->logfile, "\nNALEZ: ". $hledanyDuplikat->Email ."POCTE: ".$nalezy);
+                }
+            }
+            if($nalezy > 1) {
+                $isIn = 0;
+                foreach($duplikaty as $dup) {
+                    if(strcmp($dup, $student->Email)) {
+                        $isIn = 1;
+                    }
+                }
+                if($isIn == 0) {
+                    $duplikaty[] = $student->Email;
+                }
+                fwrite($this->logfile, "\nPocet: ". $nalezy . "Vkladam do duplikatu: ". $student->Email);
+            }
+            $nalezy = 0;
+        }
+
+        Student::pridejStudenty($data);
+        foreach($data->Student as $student) {
+            Student::propojPredmety($student);
+        }
+
+        foreach($duplikaty as $duplikat) {
+            $ids = Databaze::dotaz("SELECT id FROM studenti WHERE email LIKE ? AND skolnirok LIKE ?", array($duplikat, $skolrok));
+            foreach($ids as $id) {
+                Databaze::dotaz("INSERT INTO duplikaty(id_studenta, skolnirok) VALUES(?,?)", array($id[0], $skolrok));
+            }
         }
     }
 

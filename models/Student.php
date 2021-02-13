@@ -2,39 +2,32 @@
 
 class Student extends Uzivatel {
 
-    public static function pridejStudenta($data) {
-        $jmeno = $data->Jmeno;
-        $prijmeni = $data->Prijmeni;
-        $trida = $data->Trida;
-        $email = $data->Email;
-        $skol_rok = Config::getValueFromConfig("skolnirok_id");
+    public static function pridejStudenty($data) {
+        $dotaz = 'INSERT INTO studenti(jmeno, prijmeni, trida, email, skolnirok) VALUES';
+        foreach($data->Student as $student) {
+            $jmeno = $student->Jmeno;
+            $prijmeni = $student->Prijmeni;
+            $trida = $student->Trida;
+            $email = $student->Email;
+            $skol_rok = Config::getValueFromConfig("skolnirok_id");
 
-        $exists = Databaze::dotaz("SELECT * FROM studenti WHERE email LIKE ? AND skolnirok LIKE ?", array($email, $skol_rok));
-        if($exists == null) {
-            Databaze::dotaz("INSERT INTO studenti(jmeno, prijmeni, trida, email, skolnirok) VALUES(?,?,?,?,?)",
-                array($jmeno, $prijmeni, $trida, $email, $skol_rok));
-        } else {
-            foreach($exists as $user) {
-                Databaze::dotaz("INSERT INTO duplikaty(email, jmeno, prijmeni, trida, skolnirok) VALUES(?,?,?,?,?)",
-                array($user["email"], $user["jmeno"], $user["prijmeni"], $user["trida"], $user["skolnirok"]));
-            }
+            $dotaz = $dotaz . '("' . $jmeno . '","' . $prijmeni . '","' . $trida . '","'.$email.'",'.$skol_rok.'),'; 
 
-            $email = str_replace(".st@spseiostrava.cz", (string)rand(0,20) . ".st@spseiostrava.cz", $email);
-            Databaze::dotaz("INSERT INTO studenti(jmeno, prijmeni, trida, email, skolnirok) VALUES(?,?,?,?,?)",
-                array($jmeno, $prijmeni, $trida, $email, $skol_rok));
-            Databaze::dotaz("INSERT INTO duplikaty(email, jmeno, prijmeni, trida, skolnirok) VALUES(?,?,?,?,?)",
-                array($email, $jmeno, $prijmeni, $trida, $skol_rok));
         }
-        Student::propojPredmety($data, $email);
+        $dotaz = rtrim($dotaz, ',');
+        Databaze::dotaz($dotaz, array()); 
     }
 
-    public static function propojPredmety($data, $email) {
-        $ids = Databaze::dotaz("SELECT id FROM studenti WHERE email LIKE ?", array($email));
+    public static function propojPredmety($data) {
+        $ids = Databaze::dotaz("SELECT id FROM studenti WHERE email LIKE ? and trida LIKE ?", array($data->Email, $data->Trida));
         $skol_rok = Config::getValueFromConfig("skolnirok_id");
-        foreach($data->Predmety->Predmet as $predmet) {
-            Databaze::dotaz("INSERT INTO studenti_predmety(id_s, id_p, id_u, skolnirok, skupina) VALUES(?,?,?,?,?)",
-                array($ids[0]["id"], $predmet->Zkratka, $predmet->Ucitel, $skol_rok, $predmet->Skupina));
+        $dotaz = "INSERT INTO studenti_predmety(id_s, id_p, id_u, skolnirok, skupina) VALUES";
+        $predmety = $data->Predmety->Predmet;
+        foreach($predmety as $predmet) {
+            $dotaz = $dotaz . '(' . $ids[0]["id"] . ',"' . $predmet->Zkratka . '","' . $predmet->Ucitel . '",'.$skol_rok.',"'.$predmet->Skupina.'"),';
         }
+        $dotaz = rtrim($dotaz, ',');
+        Databaze::dotaz($dotaz, array());
     }
 
     // funkce na doplneni gid a avataru uzivatele co se prihlasuje pres gsuite

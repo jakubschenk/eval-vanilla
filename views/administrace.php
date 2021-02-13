@@ -11,6 +11,13 @@ require_once 'templates/header.php';
 <p><a href="/administrace/ucitel/otazky/upravit">Upravit otázky pro učitele</a></p>
 <p><a href="/administrace/import">Export dat</a></p>
 <p><a href="/administrace/logout">Odhlásit se</a></p>
+
 <?php
+$ids = Databaze::dotaz("SELECT id FROM studenti WHERE email LIKE ? AND skolnirok LIKE ?", array("r.stacha.st@spseiostrava.cz", 4));
+print_r($ids);
+echo '<br>';
+foreach($ids as $id) {
+    print_r($id);
+}
 require_once 'templates/footer.php';
 ?>

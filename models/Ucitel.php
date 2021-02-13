@@ -21,10 +21,16 @@ class Ucitel extends Uzivatel {
     public static function propojPredmety($data) {
         $idu = $data->Zkratka;
         $skol_rok = Config::getValueFromConfig("skolnirok_id");
-        foreach($data->Predmety->Predmet as $predmet) {
-            Databaze::dotaz("INSERT INTO ucitele_predmety(id_u, id_p, trida, skolnirok, skupina) VALUES(?,?,?,?,?)",
-                array($idu, $predmet->Zkratka, $predmet->Trida, $skol_rok, $predmet->Skupina));
-        }
+        $predmety = $data->Predmety->Predmet;
+        $dotaz = "INSERT INTO ucitele_predmety(id_u, id_p, trida, skolnirok, skupina) VALUES";
+        if($predmety != null) {
+            foreach($predmety as $predmet) {
+                $dotaz = $dotaz . '("' . $idu . '","' . $predmet->Zkratka . '","' . $predmet->Trida . '",'.$skol_rok.',"'.$predmet->Skupina.'"),';
+            }
+            $dotaz = rtrim($dotaz, ',');
+            //print_r($dotaz);
+            Databaze::dotaz($dotaz, array());
+        } 
     }
 
     public static function updateAndCheckUser($user_data) {
