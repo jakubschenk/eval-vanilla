@@ -44,11 +44,14 @@ class Otazka {
         echo '</div>';
     }
 
-    public static function vypisOtazky(array $otazky) {
+    public static function vypisOtazky($predmet, $ucitel, array $otazky) {
+        echo '<form action="/p/'. $ucitel .'/'.$predmet.'/submit" method="post">';
         foreach($otazky as $otazka) {
             $o = new Otazka($otazka["id"], $otazka["druh"], $otazka["otazka"]);
             $o->vypisOtazku();
         }
+        echo '<input type="submit" name="Odeslat" value="Submit">';
+        echo '</form>';
     }
 
     public static function vratOtazkyProStudenty() {

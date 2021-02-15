@@ -61,5 +61,4 @@ Route::add('/administrace/import', function() {
   
 Route::add('/administrace/importing', function() {
     AdminController::view("AdministraceNahravaniDatabaze", "Nahrávání..", array());
-    new AdminImportController();
-}, 'post');
+}, 'post', 'get');

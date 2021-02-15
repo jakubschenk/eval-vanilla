@@ -10,9 +10,13 @@ Route::add('/', function() {
   }
 });
 
-Route::add('/p/([a-zA-Z]*)', function($predmet) {
-  new OtazkyController($predmet); 
+Route::add('/p/([a-zA-Z]*)/([a-zA-Z]*)', function($ucitel, $predmet) {
+  Controller::view("Otazky", $predmet, array($predmet, $ucitel));
 });
+
+Route::add('/p/([A-Z]*)/([A-Z]*)/submit', function($ucitel, $predmet) {
+  OtazkyController::zpracuj($predmet, $ucitel);
+}, 'post');
 
 Route::add('/unauthorized', function() {
   Controller::viewStatic('UnauthorizedUser', "Nepovoleno!");

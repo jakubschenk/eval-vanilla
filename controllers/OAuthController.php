@@ -33,12 +33,15 @@ class OAuthController extends Controller {
         if($user_data) {
           if(Uzivatel::typChooser($user_data["email"]) == 'ucitel') {
               $exists = Ucitel::updateAndCheckUser($user_data);
+              $_SESSION["druh"] = "ucitel";
           } else {
               $exists = Student::updateAndCheckUser($user_data); 
+              $_SESSION["druh"] = "student";
           }
           
           if($exists) {
             $_SESSION['email'] = $exists->getEmail();
+            $_SESSION["id"] = $exists::getId($exists->getEmail());
             file_put_contents('log.txt', time() . ' | logged in user: ' . $_SESSION['email']);
             header('Location: ' . filter_var($this->root_uri, FILTER_SANITIZE_URL));  
           } else {

@@ -19,7 +19,7 @@ class Student extends Uzivatel {
     }
 
     public static function propojPredmety($data) {
-        $ids = Databaze::dotaz("SELECT id FROM studenti WHERE email LIKE ? and trida LIKE ?", array($data->Email, $data->Trida));
+        $ids = Databaze::dotaz("SELECT id FROM studenti WHERE email LIKE ? and trida LIKE ? and skolnirok = ?", array($data->Email, $data->Trida, Config::getValueFromConfig("skolnirok_id")));
         $skol_rok = Config::getValueFromConfig("skolnirok_id");
         $dotaz = "INSERT INTO studenti_predmety(id_s, id_p, id_u, skolnirok, skupina) VALUES";
         $predmety = $data->Predmety->Predmet;
