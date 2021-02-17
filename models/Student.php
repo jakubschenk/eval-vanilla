@@ -43,6 +43,8 @@ class Student extends Uzivatel {
             if(empty($databaze_profil)) { 
                 Databaze::vloz("UPDATE studenti SET gid = ?, avatar = ? WHERE email LIKE ?",
                     array($student->getGid(), $student->getObrazek(), $student->getEmail()));
+            } else {
+                Databaze::dotaz("UPDATE studenti SET avatar = ? WHERE email LIKE ?", array($student->getObrazek(), $student->getEmail()));
             }
             $_SESSION["typ"] = 2;
             return $student;

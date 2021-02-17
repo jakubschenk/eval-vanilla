@@ -42,7 +42,8 @@ class OAuthController extends Controller {
           if($exists) {
             $_SESSION['email'] = $exists->getEmail();
             $_SESSION["id"] = $exists::getId($exists->getEmail());
-            file_put_contents('log.txt', time() . ' | logged in user: ' . $_SESSION['email']);
+            $_SESSION["avatar"] = $exists->getObrazek();
+            file_put_contents('log.txt', time() . ' - prihlasen uzivatel: ' . $_SESSION['email'] . '\n');
             header('Location: ' . filter_var($this->root_uri, FILTER_SANITIZE_URL));  
           } else {
             unset($_SESSION['access_token']);

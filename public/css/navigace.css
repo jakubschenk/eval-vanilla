@@ -1,0 +1,32 @@
+.profile-pic {
+    width: 25%;
+    height: 25%;
+}
+
+.logout-icon {
+    display: none;
+}
+
+main {
+    padding: 5%;    
+}
+
+.navbar {
+    background-color: #0e0e0e;
+    padding: .5rem 1rem;
+}
+
+@media (max-width: 767.98px) {
+    .logout-text {
+        display: none !important;
+    }
+    .logout-icon {
+        display: block;
+        padding: 0;
+    }
+    .profile-pic {
+        width: 25%;
+        height: 25%;
+        padding-right: 0;
+    }
+}

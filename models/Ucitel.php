@@ -45,6 +45,8 @@ class Ucitel extends Uzivatel {
             if(empty($databaze_profil)) { 
                 Databaze::vloz("INSERT INTO ucitele(gid, avatar) VALUES(?,?)",
                     array($ucitel->getGid(), $ucitel->getObrazek()));
+            } else {
+                Databaze::dotaz("UPDATE ucitele SET avatar = ? WHERE email LIKE ?", array($ucitel->getObrazek(), $ucitel->getEmail()));
             }
             $_SESSION["typ"] = 1;
             return $ucitel;

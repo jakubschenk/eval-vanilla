@@ -4,7 +4,7 @@ use Steampixel\Route;
 
 Route::add('/', function() {
   if(isset($_SESSION['access_token'])) {
-    PredmetyController::view("Predmety", "eval", array());
+    Controller::view("Home", "Předměty", ['stylesheets' => ['predmety']]);
   } else {
      require_once 'views/LandingPage.php';
   }

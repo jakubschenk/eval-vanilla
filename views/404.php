@@ -16,7 +16,7 @@
 }
 
 body, html {
-    background: black;
+    background: #0e0e0e;
     height: 100%;
     display: grid; 
 }
