@@ -1,10 +1,11 @@
-/vendor
+vendor
 .env
 .htaccess
 client_secrets.json
 composer.lock
 test.php
 log.txt
-/nbproject/private/
-/import_cache/
+nbproject/private/
+import_cache/
 import.xml
+pictures/

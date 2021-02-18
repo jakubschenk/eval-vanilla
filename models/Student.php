@@ -46,7 +46,6 @@ class Student extends Uzivatel {
             } else {
                 Databaze::dotaz("UPDATE studenti SET avatar = ? WHERE email LIKE ?", array($student->getObrazek(), $student->getEmail()));
             }
-            $_SESSION["typ"] = 2;
             return $student;
         } else {
             return null;  

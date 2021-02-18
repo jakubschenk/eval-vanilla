@@ -29,4 +29,7 @@ main {
         height: 25%;
         padding-right: 0;
     }
+    .navbar-center {
+        display: hidden;
+    }
 }

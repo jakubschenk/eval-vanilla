@@ -43,7 +43,9 @@ class OAuthController extends Controller {
             $_SESSION['email'] = $exists->getEmail();
             $_SESSION["id"] = $exists::getId($exists->getEmail());
             $_SESSION["avatar"] = $exists->getObrazek();
-            file_put_contents('log.txt', time() . ' - prihlasen uzivatel: ' . $_SESSION['email'] . '\n');
+            $file = fopen("log.txt", 'a');
+            fwrite($file, date("d M Y H:i:s") . 'Prihlasen uzivatel '. $exists->getEmail());
+            fclose($file);
             header('Location: ' . filter_var($this->root_uri, FILTER_SANITIZE_URL));  
           } else {
             unset($_SESSION['access_token']);
@@ -62,7 +64,9 @@ class OAuthController extends Controller {
     {
       unset($_SESSION['access_token']);
       $this->client->revokeToken();
-      file_put_contents('log.txt', time() . ' : logged OUT user' . $_SESSION['jmeno']);
+      $file = fopen("log.txt", 'a');
+      fwrite($file, date("d M Y H:i:s") . 'Odhlasen uzivatel '. $_SESSION['email']);
+      fclose($file);
       $_SESSION = array();
       session_destroy();
       header('Location: ' . filter_var($this->root_uri, FILTER_SANITIZE_URL)); //redirect user back to page

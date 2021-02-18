@@ -4,12 +4,14 @@ class OtazkyController extends Controller {
     private $predmety;
     private $predmet;
     private $ucitel_id;
+    private $trida;
+    private $skupina;
     private $id;
 
-    public function __construct($predmet, $ucitel) {
+    public function __construct($predmet, array $uts) { // ucitel, trida, skupina, pouzivame jeden controller na nekolik veci tak pouzivame pole
         $this->predmet = $predmet;
-        if(Uzivatel::typChooser($_SESSION["email"]) == 'student') {
-            $this->ucitel_id = $ucitel;
+        if($_SESSION['druh'] == 'student') {
+            $this->ucitel_id = $uts['ucitel'];
             $this->id = Student::getId($_SESSION["email"]);
             $this->predmety = Predmet::vratPredmetyProStudenta($this->id);
             $shoda = 0;
@@ -24,6 +26,23 @@ class OtazkyController extends Controller {
             } else {
                 echo "neplatny predmet";
             }
+        } else if ($_SESSION['druh'] == 'ucitel') {
+            $this->trida = $uts['trida'];
+            $this->skupina = $uts['skupina'];
+            $this->id = Ucitel::getId($_SESSION["email"]);
+            $this->predmety = Predmet::vratPredmetyProUcitele($this->id);
+            $shoda = 0;
+            foreach($this->predmety as $povolenePredmety) {
+                if($povolenePredmety["zkratka"] == $this->predmet && $povolenePredmety["trida"] == $this->trida && $povolenePredmety['skupina'] == $this->skupina) {
+                    $shoda = 1;
+                    break;
+                }
+            }
+            if($shoda) {
+                Otazka::vypisOtazky($this->predmet, $this->ucitel_id, Otazka::vratOtazkyProUcitele());
+            } else {
+                echo "neplatny predmet";
+            }    
         }
     }
     public static function zpracuj($predmet, $ucitel) {

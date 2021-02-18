@@ -12,7 +12,7 @@ abstract class Uzivatel {
     public function __construct($user_data) { // $user_data dostaneme od Google_Service_Oauth2
         $this->jmeno = $user_data['name'];
         $this->email = $user_data['email'];
-        $this->obrazek = $user_data['picture'];
+        $this->obrazek = $this->savePicture($user_data['picture']);
         $this->g_id = $user_data['id'];
         $this->typ = $this->typChooser($this->email);
         $this->skolnirok = Config::getValueFromConfig("skolnirok_id");
@@ -24,6 +24,12 @@ abstract class Uzivatel {
             } else {
               return 'ucitel';
             }    
+    }
+
+    private function savePicture($picAddr) {
+        $path = '/pictures/profiles/' . $this->email . '.png';
+        file_put_contents($_SERVER["DOCUMENT_ROOT"] . $path, fopen($picAddr, 'r'));
+        return $path;
     }
 
     public function getEmail() {
