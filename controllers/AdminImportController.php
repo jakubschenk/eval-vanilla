@@ -1,6 +1,6 @@
 <?php
 
-class AdminImportController {
+class AdminImportController extends AdminController{
 
     private $logfile;
     private $xml_filepath;

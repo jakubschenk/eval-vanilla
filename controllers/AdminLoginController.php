@@ -1,6 +1,6 @@
 <?php
 
-class AdminLoginController extends Controller {
+class AdminLoginController extends AdminController {
 
     public static function loginAdmin() {
         $admin_login = $_POST['login'];

@@ -27,7 +27,7 @@ Route::add('/administrace/([a-z]*)/otazky/smazat', function($druh) {
 }, 'post');
   
 Route::add('/administrace/([a-z]*)/uzivatele/upravit', function($druh) {
-    new AdminUzivateleEditController($druh);
+    AdminUzivateleEditController::view("AdministraceUzivatele", "Úprava uživatelů", array($druh));
 });
   
 Route::add('/administrace/login', function() {

@@ -1,6 +1,6 @@
 <?php
 
-class AdminRegisterController extends Controller {
+class AdminRegisterController extends AdminController {
     public static function registerAdmin() {
         $admin_reg_login = $_POST['regLogin'];
         $admin_reg_email = $_POST['regEmail'];

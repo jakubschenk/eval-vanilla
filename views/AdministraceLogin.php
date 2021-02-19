@@ -1,5 +1,4 @@
 <?php
-require_once 'templates/header.php';
 
 $config_json = file_get_contents('config.json');
 $cfg = json_decode($config_json, true);
@@ -20,5 +19,4 @@ if($cfg['adminReg']) {
 if(isset($_GET['badLogin'])) {
     echo('<p>Spatne prihlaseni</p>');
 }
-require_once 'templates/footer.php';
 ?>

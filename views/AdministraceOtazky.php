@@ -1,7 +1,5 @@
 <?php
 
-include 'templates/header.php';
-
 $druh = $args[0];
 
 new AdminOtazkyEditController($druh);
@@ -12,5 +10,4 @@ new AdminOtazkyEditController($druh);
 <script src="/public/js/loadEditor.js"></script>
 
 <?php
-include 'templates/footer.php';
 ?>

@@ -1,6 +1,6 @@
 <?php
 
-class AdminController extends Controller {
+class AdminController {
 
     public static function logout() {
         $_SESSION = array();
@@ -14,8 +14,7 @@ class AdminController extends Controller {
             $pageName = $title;
             require_once 'views/'. $name . '.php';
         } else {
-            $redirect_url = '/administrace/login';
-            header('Location: ' . filter_var($redirect_url, FILTER_SANITIZE_URL));
+            require_once 'views/AdministraceLogin.php';
         }        
     }
 }

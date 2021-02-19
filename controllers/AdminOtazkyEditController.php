@@ -1,6 +1,6 @@
 <?php
 
-class AdminOtazkyEditController
+class AdminOtazkyEditController extends AdminController
 {
     private $druh;
     private $skolnirok;
