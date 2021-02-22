@@ -22,10 +22,10 @@
             <a class="navbar-brand px-3 py-2" href="/">
                 <img src="/public/images/spsei-logo.png" width="160" height="40" alt="">
             </a>
-            <div class="nav navbar-nav navbar-center px-3">
+            <div class="nav navbar-nav navbar-center px-3 mid-text">
                 <span class="text-white">evaluační aplikace</span>
             </div>
-            <div class="form-inline px-3">
+            <div class="form-inline px-2">
                 <img class="rounded mx-auto profile-pic" src="<?php echo $_SESSION["avatar"]; ?>" alt="Google Avatar" />
                 <a href="/auth/google/logout">
                     <button class="btn mx-auto btn-outline-secondary text-white" id="logout">

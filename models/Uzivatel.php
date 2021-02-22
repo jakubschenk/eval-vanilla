@@ -27,6 +27,12 @@ abstract class Uzivatel {
     }
 
     private function savePicture($picAddr) {
+        if(!is_dir("pictures")) {
+            mkdir("pictures");
+            mkdir("pictures/profiles");
+        } else if (!is_dir("pictures/profiles")) {
+            mkdir("pictures/profiles");   
+        }
         $path = '/pictures/profiles/' . $this->email . '.png';
         file_put_contents($_SERVER["DOCUMENT_ROOT"] . $path, fopen($picAddr, 'r'));
         return $path;
