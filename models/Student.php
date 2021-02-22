@@ -57,5 +57,7 @@ class Student extends Uzivatel {
         return $id[0][0];
     }
 
-
+    public static function vratStudenty() {
+        return Databaze::dotaz("SELECT * from studenti where skolnirok like ? order by trida asc", array(Config::getValueFromConfig('skolnirok_id')));
+    }
 }

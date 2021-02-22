@@ -7,7 +7,7 @@ Route::add('/administrace/login', function() {
 }, 'post');
   
 Route::add('/administrace/([a-z]*)/otazky/upravit', function($druh) {
-    AdminController::view("AdministraceOtazky", "Administrace", array($druh));
+    AdminController::view("AdministraceOtazky", "Administrace", [$druh, 'stylesheets' => ['upravaOtazek']]);
 });
   
 Route::add('/administrace/([a-z]*)/otazky/ulozit', function($druh) {
@@ -27,7 +27,7 @@ Route::add('/administrace/([a-z]*)/otazky/smazat', function($druh) {
 }, 'post');
   
 Route::add('/administrace/([a-z]*)/uzivatele/upravit', function($druh) {
-    AdminUzivateleEditController::view("AdministraceUzivatele", "Úprava uživatelů", array($druh));
+    AdminUzivateleEditController::view("AdministraceUzivatele", "Úprava uživatelů", [$druh, 'stylesheets' => ['upravaUzivatelu']]);
 });
   
 Route::add('/administrace/login', function() {
