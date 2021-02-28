@@ -19,7 +19,7 @@ Route::add('/fakelogin', function() {
 });
 
 Route::add('/p/([a-zA-Z]*)/([a-zA-Z]*)', function($ucitel, $predmet) {
-  Controller::view("Otazky", $predmet, array($predmet, $ucitel));
+  Controller::view("Otazky", $predmet, array($predmet, $ucitel, 'stylesheets' => ['otazky']));
 });
 
 Route::add('/p/([A-Z]*)/([A-Z]*)/submit', function($ucitel, $predmet) {

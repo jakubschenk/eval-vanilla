@@ -53,7 +53,7 @@ class OtazkyController extends Controller {
             $trida = Databaze::dotaz("SELECT trida from studenti where id = ? and skolnirok = ?", array($_SESSION["id"], Config::getValueFromConfig("skolnirok_id")));
             foreach($_POST as $key => $value) {
                 if($key != "Odeslat") {
-                    $dotaz = $dotaz . '("'.$predmet.'","'.$ucitel.'",'.$key.',"'.$trida[0]["trida"].'","'.$skupina[0]["skupina"].'","'.$value.'"),';
+                    $dotaz = $dotaz . '("'.$predmet.'","'.$ucitel.'",'.$key.',"'.$trida[0]["trida"].'","'.$skupina[0]["skupina"].'","'.htmlspecialchars($value).'"),';
                 }
 
             }

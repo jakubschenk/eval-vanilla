@@ -25,4 +25,8 @@ class AdminController {
             require_once 'views/AdministraceLogin.php';
         }        
     }
+
+    public static function viewStatic($name) {
+        require_once 'views/'.$name.'.php';
+    }
 }

@@ -31,7 +31,7 @@ Route::add('/administrace/([a-z]*)/uzivatele/upravit', function($druh) {
 });
   
 Route::add('/administrace/login', function() {
-    AdminLoginController::view('AdministraceLogin', "Přihlášení", array());
+    AdminLoginController::viewStatic('AdministraceLogin', "Přihlášení");
 }, 'get');
   
 if($cfg['adminReg']) {

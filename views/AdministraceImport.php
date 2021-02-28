@@ -1,6 +1,4 @@
 <?php
-require_once 'templates/header.php';
-
 if(isset($_GET["error"])) {
     echo "Chyba pri importu! Zkontrolujte log.";
     echo '<a href="/administrace/import">Vratit se</a>';
@@ -20,5 +18,4 @@ if(isset($_GET["error"])) {
 
 <?php
 }
-require_once 'templates/footer.php';
 ?>

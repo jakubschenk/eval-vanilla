@@ -19,7 +19,7 @@
 <body>
     <header>
         <nav class="navbar navbar-dark py-2">
-            <a class="navbar-brand px-3 py-2" href="/">
+            <a class="navbar-brand px-3 py-2" href="/administrace">
                 <img src="/public/images/spsei-logo.png" width="160" height="40" alt="">
             </a>
             <div class="nav navbar-nav navbar-center px-3 mid-text">

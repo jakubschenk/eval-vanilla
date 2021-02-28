@@ -1,0 +1,52 @@
+.otazky {
+    width: 40%;
+}
+
+.radio-wrapper {
+    padding-bottom: 13px;
+    position: relative;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.radio-label-vertical {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0 20px;
+    text-align: center;
+  }
+  
+.radio-label-vertical input {
+    position: absolute;
+    top: 28px;
+    left: 50%;
+    margin-left: -6px;
+    display: block;
+    cursor: pointer;
+}
+
+@media (max-width: 767.98px) {
+    .otazky{
+        width: 99%;
+    }
+    .radio-label-vertical {
+        padding: 0 5px;
+    }
+    .card {
+        padding: 5px;
+        margin-bottom: 10px;
+    }
+}
+@media (max-width: 376px) {
+    .otazky{
+        width: 100%;
+    }
+    .radio-label-vertical {
+        padding: 0 2px;
+    }
+    .card {
+        padding: 2px;
+        margin-bottom: 10px;
+    }
+}

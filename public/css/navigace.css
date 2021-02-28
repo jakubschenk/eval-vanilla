@@ -8,12 +8,37 @@
 }
 
 main {
-    padding: 5%;    
+    padding-top: 100px;    
 }
 
 .navbar {
     background-color: #0e0e0e;
     padding: .5rem 1rem;
+}
+
+@media (max-width: 300px) {
+    .profile-pic {
+        display: none;
+    }  
+}
+
+@media (max-width: 400px) {
+    .profile-pic {
+        padding: 0 !important;
+        margin: 0 !important;
+    }  
+    
+    .logout-icon {
+        padding: 0 !important;
+        margin: 0 !important;  
+    }
+    .logo {
+        width: 25%;
+    }
+    .form-inline {
+        padding: 0;
+        margin: 0;
+    }
 }
 
 @media (max-width: 767.98px) {

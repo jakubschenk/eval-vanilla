@@ -22,35 +22,69 @@ class Otazka {
     }
 
     public function vypisOtazku() {
-        echo '<div class="otazka" id="' . $this->id . '">';
+        echo '<div class="card otazka mb-4" id="' . $this->id . '">';
         if($this->druh == "otevřená") {
-            echo '<p class="textOtazky">' . $this->text . '</p>';
-            echo '<input type="text" id="' . $this->id .'" name="' . $this->id .'">';
+            echo '<div class="card-header">';
+            echo '<h4 class="card-title my-auto">' . $this->id .'. '  . $this->text . '</h4>';
+            echo '</div>';
+            echo '<div class="container mx-auto card-body">';
+            echo '<textarea class="form-control" id="' . $this->id .'" name="' . $this->id .'"></textarea>';
+            echo '</div>';
         } else if ($this->druh == "výběrová") {
-            echo '<p class="textOtazky">' . $this->id . '. ' . $this->text . '</p>';
-            echo '<span class="levytext">' . $this->leva . '</span>';
-            echo '<input type="radio" id="' . $this->id .'" name="' . $this->id .'" value="1">';
-            echo '<label for="' . $this->id .'">1</label>';
-            echo '<input type="radio" id="' . $this->id .'" name="' . $this->id .'" value="2">';
-            echo '<label for="' . $this->id .'">2</label>';
-            echo '<input type="radio" id="' . $this->id .'" name="' . $this->id .'" value="3">';
-            echo '<label for="' . $this->id .'">3</label>';
-            echo '<input type="radio" id="' . $this->id .'" name="' . $this->id .'" value="4">';
-            echo '<label for="' . $this->id .'">4</label>';
-            echo '<input type="radio" id="' . $this->id .'" name="' . $this->id .'" value="5">';
-            echo '<label for="' . $this->id .'">5</label>';
-            echo '<span class="pravytext">' . $this->prava . '</span>';
+            ?>
+            <div class="card-header">
+                <h4 class="card-title my-auto"><?php echo $this->id . '. ' . $this->text; ?></h4>
+            </div>
+            <div class="container mx-auto card-body text-center">
+            <span class="levytext pr-3"><?php echo $this->leva; ?></span>
+            <div class="radio-wrapper">
+            <div class="form-check form-check-inline">
+                <label class="form-check-label radio-label-vertical" for="<?php echo $this->id; ?>">
+                    1
+                    <input type="radio" id="<?php echo $this->id; ?>" name="<?php echo $this->id; ?>" value="1">
+                </label>
+            </div>
+            <div class="form-check form-check-inline">
+                <label class="form-check-label radio-label-vertical" for="<?php echo $this->id; ?>">
+                    2
+                    <input type="radio" id="<?php echo $this->id; ?>" name="<?php echo $this->id; ?>" value="2">
+                </label>
+            </div>
+            <div class="form-check form-check-inline">
+                <label class="form-check-label radio-label-vertical" for="<?php echo $this->id; ?>">
+                    3
+                    <input type="radio" id="<?php echo $this->id; ?>" name="<?php echo $this->id; ?>" value="3">
+                </label>
+            </div>
+            <div class="form-check form-check-inline">
+                <label class="form-check-label radio-label-vertical" for="<?php echo $this->id; ?>">
+                    4
+                    <input type="radio" id="<?php echo $this->id; ?>" name="<?php echo $this->id; ?>" value="4">
+                </label>
+            </div>
+            <div class="form-check form-check-inline">
+                <label class="form-check-label radio-label-vertical" for="<?php echo $this->id; ?>">
+                    5
+                    <input type="radio" id="<?php echo $this->id; ?>" name="<?php echo $this->id; ?>" value="5">
+                </label>
+            </div>
+        </div>
+            <span class="pravytext pl-3"><?php echo $this->prava; ?></span>
+        </div>
+            
+            <?php
         }
         echo '</div>';
     }
 
     public static function vypisOtazky($predmet, $ucitel, array $otazky) {
-        echo '<form action="/p/'. $ucitel .'/'.$predmet.'/submit" method="post">';
+        echo '<h2>' . $predmet . ' - ' . $ucitel . '</h2>';
+        echo '<form class="form mx-auto my-4 pb-2" action="/p/'. $ucitel .'/'.$predmet.'/submit" method="post">';
         foreach($otazky as $otazka) {
             $o = new Otazka($otazka["id"], $otazka["druh"], $otazka["otazka"]);
             $o->vypisOtazku();
         }
-        echo '<input type="submit" name="Odeslat" value="Submit">';
+        echo '<input class="btn btn-secondary" type="submit" name="Odeslat" value="Submit">';
         echo '</form>';
     }
 

@@ -18,14 +18,14 @@
 
 <body>
     <header>
-        <nav class="navbar navbar-dark py-2">
-            <a class="navbar-brand px-3 py-2" href="/">
+        <nav class="navbar fixed-top navbar-dark py-2">
+            <a class="navbar-brand px-2 logo" href="/">
                 <img src="/public/images/spsei-logo.png" width="160" height="40" alt="">
             </a>
             <div class="nav navbar-nav navbar-center px-3 mid-text">
                 <span class="text-white">evaluační aplikace</span>
             </div>
-            <div class="form-inline px-2">
+            <div class="form-inline">
                 <img class="rounded mx-auto profile-pic" src="<?php echo $_SESSION["avatar"]; ?>" alt="Google Avatar" />
                 <a href="/auth/google/logout" class="btn mx-auto btn-outline-secondary text-white" id="logout">
                     <span class="logout-text">Odhlásit se</span>
