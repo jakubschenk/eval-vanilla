@@ -23,26 +23,27 @@ class AdminOtazkyEditController extends AdminController
     {
         echo '<script>var pocetOtazek = ' . count($otazky) . ';var otazkyIds = [];</script>';
         echo '<div class="pridatOtazku" id="pridatOtazku">';
-        echo '<button id="pridatOtazkuBtn" onclick="EditorOtazek.zobrazPridaniOtazky();" value="Nová otázka">Přidat novou otázku</button>';
-        echo '<textarea id="textOtazkyInputNova" name="textOtazkyInputNova" hidden></textarea>';
-        echo '<textarea id="levytextInputNova" name="levytextInputNova" hidden></textarea>';
-        echo '<textarea id="pravytextInputNova" name="pravytextInputNova" hidden></textarea>';
+        echo '<button class="btn bg-dark text-light" lid="pridatOtazkuBtn" onclick="EditorOtazek.zobrazPridaniOtazky();" value="Nová otázka">Přidat novou otázku</button>';
+        echo '<textarea class="d-none" id="textOtazkyInputNova" name="textOtazkyInputNova"></textarea>';
+        echo '<textarea class="d-none" id="levytextInputNova" name="levytextInputNova"></textarea>';
+        echo '<textarea class="d-none" id="pravytextInputNova" name="pravytextInputNova"></textarea>';
         echo '<label for="vyberDruhuNova" hidden>Vyber druh otázky: </label>';
         echo '<select name="vyberDruhu" id="vyberDruhuNova" onchange="EditorOtazek.zmenTypNove();" hidden>';
         echo '<option value="otevřená">Otevřená</option>';
         echo '<option value="výběrová" selected>Výběřová</option>';
         echo '</select>';
-        echo '<button id="pridatNovaBtn" onclick="EditorOtazek.pridatOtazku();" value="přidat" hidden>Přidat!</button>';
+        echo '<button id="pridatNovaBtn" class="btn" onclick="EditorOtazek.pridatOtazku();" value="přidat" hidden>Přidat!</button>';
         echo '</div>';
         foreach ($otazky as $otazka) {       
             $id = $otazka["id"];
             $druh = $otazka["druh"];
+            $poradi = $otazka["poradi"];
             echo '<div class="otazka" id="div' . $id . '">';
             if ($druh == "otevřená") {
                 $text = $otazka["otazka"];
                 $leva = '';
                 $prava = '';
-                echo '<p class="cisloOtazky">'. $id . '.</p>';
+                echo '<p class="cisloOtazky">'. $poradi . '.</p>';
                 echo '<p class="textOtazky" id="textOtazky' . $id . '" >' . $text . '</p>';
                 echo '<textarea id="textOtazkyInput' . $id . '" name="textOtazkyInput' . $id . '" hidden>' . $text . '</textarea>';
                 echo '<p id="druh' . $id . '">' . $druh . '</p>';
@@ -57,7 +58,7 @@ class AdminOtazkyEditController extends AdminController
                 echo '</select>';
             } else if ($druh == "výběrová") {
                 list($text, $leva, $prava) = explode(";", $otazka["otazka"], 3);
-                echo '<p class="cisloOtazky">'. $id . '.</p>';
+                echo '<p class="cisloOtazky">'. $poradi . '.</p>';
                 echo '<p class="textOtazky" id="textOtazky' . $id . '" >' . $text . '</p>';
                 echo '<textarea id="textOtazkyInput' . $id . '" name="textOtazkyInput' . $id . '" hidden>' . $text . '</textarea>';
                 echo '<p id="druh' . $id . '">' . $druh . '</p>';
@@ -71,9 +72,9 @@ class AdminOtazkyEditController extends AdminController
                 echo '<option value="výběrová" selected>Výběřová</option>';
                 echo '</select>';
             }
-            echo '<button id="editBtn' . $id . '" onclick="editory['. $id . '].upravOtazku();">Upravit otázku</button>';
-            echo '<button id="delBtn' . $id . '" onclick="editory['. $id . '].smazOtazku();">Smazat otázku</button>';
-            echo '<button id="ulozitOtazkuBtn' . $id . '" onclick="editory['. $id . '].ulozOtazku();" hidden>Uložit otázku</button>';
+            echo '<button class="btn btn-dark text-light" id="editBtn' . $id . '" onclick="editory['. $id . '].upravOtazku();">Upravit otázku</button>';
+            echo '<button class="btn btn-dark text-light" id="delBtn' . $id . '" onclick="editory['. $id . '].smazOtazku();">Smazat otázku</button>';
+            echo '<button class="btn btn-dark text-light" id="ulozitOtazkuBtn' . $id . '" onclick="editory['. $id . '].ulozOtazku();" hidden>Uložit otázku</button>';
             echo '</div>';
             echo '<script>otazkyIds.push('.$id.')</script>';
         }

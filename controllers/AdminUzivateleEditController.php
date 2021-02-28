@@ -13,11 +13,16 @@ class AdminUzivateleEditController extends AdminController
     private function vypisVsechny()
     {
         if ($this->druh == 'ucitel') {
-            $ucitele = Databaze::dotaz("SELECT * from ucitele where skolnirok like ?", array(Config::getValueFromConfig('skolnirok_id')));
-            print_r($ucitele);
+            $ucitele = Ucitel::vratUcitele();
+            self::printTableHead("uzivatele", $this->druh);
+            foreach ($ucitele as $uc) {
+                self::vypisUzivatele($uc, $this->druh);
+            }
+            echo '</tbody>';
+            echo '</table>';
         } else if ($this->druh == 'student') {
             $studenti = Student::vratStudenty();
-            self::printTableHead("uzivatele");
+            self::printTableHead("uzivatele", $this->druh);
             foreach ($studenti as $st) {
                 self::vypisUzivatele($st, $this->druh);
             }
@@ -28,7 +33,7 @@ class AdminUzivateleEditController extends AdminController
         }
     }
 
-    public static function printTableHead($name)
+    public static function printTableHead($name, $druh)
     {
 ?>
         <table class="table table-striped" id="<?php echo $name; ?>">
@@ -37,7 +42,10 @@ class AdminUzivateleEditController extends AdminController
                     <th scope="col">ID</th>
                     <th scope="col">Email</th>
                     <th scope="col">Jméno</th>
-                    <th scope="col">Třída</th>
+                    <?php
+                        if($druh == 'student')
+                            echo '<th scope="col">Třída</th>';
+                    ?>
                     <th scope="col">Byl přihlášen?</th>
                     <th scope="col">Změnit</th>
                     <th scope="col">Smazat</th>
@@ -50,7 +58,16 @@ class AdminUzivateleEditController extends AdminController
     public static function vypisUzivatele($uzivatel, $druh)
     {
         if ($druh == 'ucitel') {
-        
+        ?>
+        <tr>
+            <td class="align-middle"><?php echo $uzivatel['id']; ?></td>
+            <td class="align-middle"><?php echo $uzivatel['email']; ?></td>
+            <td class="align-middle"><?php echo $uzivatel['jmeno'] . ' ' . $uzivatel['prijmeni']; ?></td>
+            <td class="align-middle"><?php echo ($uzivatel['gid'] != null) ? ('Ano') : ('Ne'); ?></td>
+            <td class="align-middle"><a class="btn btn-dark" href="<?php echo $uzivatel['id']; ?>/upravit">Upravit</a></td>
+            <td class="align-middle"><a class="btn btn-dark" href="<?php echo $uzivatel['id']; ?>/smazat">Smazat</a></td>
+        </tr>
+        <?php
         } else if ($druh == 'student') {
 ?>
         <tr>
@@ -74,5 +91,9 @@ class AdminUzivateleEditController extends AdminController
         } else {
             return null;
         }
+    }
+
+    public static function upravUzivatele() {
+
     }
 }

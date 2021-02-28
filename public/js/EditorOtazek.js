@@ -134,7 +134,8 @@ class EditorOtazek {
         var select = document.getElementById("vyberDruhuNova");
         var pridatBtn = document.getElementById("pridatNovaBtn");
 
-        textInput.style.display = "block";
+        $('textOtazkyInputNova').removeClass('d-none');
+        console.log("WTF");
         levytextInput.style.display = "block";
         pravytextInput.style.display = "block";
         select.style.display = "block";
