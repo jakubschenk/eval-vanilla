@@ -36,7 +36,7 @@ class Otazka
             <div class="card-header">
                 <h4 class="card-title my-auto"><?php echo $this->id . '. ' . $this->text; ?></h4>
             </div>
-            <div class="card-body row textFix">
+            <div class="card-body row ml-0 mr-0 textFix">
                 <div class=""><?php echo $this->leva; ?></div>
                 <div class="radio-wrapper text-center btn-group">
                     <div class="form-check form-check-inline w-20">
@@ -92,31 +92,31 @@ class Otazka
 
     public static function vratOtazkyProStudenty()
     {
-        $otazky = Databaze::dotaz("SELECT * FROM otazky_pro_studenty WHERE skolnirok LIKE ?", array(Config::getValueFromConfig("skolnirok_id")));
+        $otazky = Databaze::dotaz("SELECT * FROM studenti_otazky WHERE skolnirok LIKE ?", array(Config::getValueFromConfig("skolnirok_id")));
         return $otazky;
     }
     public static function vratOtazkyProUcitele()
     {
-        $otazky = Databaze::dotaz("SELECT * FROM otazky_pro_ucitele WHERE skolnirok LIKE ?", array(Config::getValueFromConfig("skolnirok_id")));
+        $otazky = Databaze::dotaz("SELECT * FROM ucitele_otazky WHERE skolnirok LIKE ?", array(Config::getValueFromConfig("skolnirok_id")));
         return $otazky;
     }
 
     public static function aktualizujOtazkuStudenta($id, $otazka, $druh, $skolnirok)
     {
-        Databaze::dotaz("UPDATE otazky_pro_studenty SET otazka = ?, druh = ? WHERE skolnirok like ? and id like ?", array($otazka, $druh, $skolnirok, $id));
+        Databaze::dotaz("UPDATE studenti_otazky SET otazka = ?, druh = ? WHERE skolnirok like ? and id like ?", array($otazka, $druh, $skolnirok, $id));
     }
 
     public static function aktualizujOtazkuUcitele($id, $otazka, $druh, $skolnirok)
     {
-        Databaze::dotaz("UPDATE otazky_pro_ucitele SET otazka = ?, druh = ? WHERE skolnirok like ? and id like ?", array($otazka, $druh, $skolnirok, $id));
+        Databaze::dotaz("UPDATE ucitele_otazky SET otazka = ?, druh = ? WHERE skolnirok like ? and id like ?", array($otazka, $druh, $skolnirok, $id));
     }
 
     public static function pridejOtazkuStudentovi($id, $otazka, $druh, $skolnirok)
     {
-        Databaze::dotaz("INSERT INTO otazky_pro_studenty(id, otazka, druh, skolnirok) VALUES(?, ?, ?, ?)", array($id, $otazka, $druh, $skolnirok));
+        Databaze::dotaz("INSERT INTO studenti_otazky(poradi, otazka, druh, skolnirok) VALUES(?, ?, ?, ?)", array($id, $otazka, $druh, $skolnirok));
     }
     public static function pridejOtazkuUciteli($id, $otazka, $druh, $skolnirok)
     {
-        Databaze::dotaz("INSERT INTO otazky_pro_ucitele(id, otazka, druh, skolnirok) VALUES(?, ?, ?, ?)", array($id, $otazka, $druh, $skolnirok));
+        Databaze::dotaz("INSERT INTO ucitele_otazky(poradi, otazka, druh, skolnirok) VALUES(?, ?, ?, ?)", array($id, $otazka, $druh, $skolnirok));
     }
 }

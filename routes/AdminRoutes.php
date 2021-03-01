@@ -7,7 +7,7 @@ Route::add('/administrace/login', function() {
 }, 'post');
   
 Route::add('/administrace/([a-z]*)/otazky/upravit', function($druh) {
-    AdminController::view("AdministraceOtazky", "Administrace", [$druh, 'stylesheets' => ['upravaOtazek']]);
+    AdminController::view("AdministraceOtazky", "Administrace", [$druh, 'stylesheets' => ['upravaOtazek'], 'js' => ['EditorOtazek', 'loadEditor']]);
 });
   
 Route::add('/administrace/([a-z]*)/otazky/ulozit', function($druh) {
