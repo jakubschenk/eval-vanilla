@@ -93,7 +93,12 @@ class AdminUzivateleEditController extends AdminController
         }
     }
 
-    public static function upravUzivatele() {
-
+    public static function vypisUzivateleProEdit($id, $druh) {
+        if($druh == 'student') {
+            print_r(Databaze::dotaz("SELECT * from studenti where id like ?", array($id)));
+        } else {
+            print_r(Databaze::dotaz("SELECT * from ucitele where id like ?", array($id)));
+        }
+        
     }
 }
