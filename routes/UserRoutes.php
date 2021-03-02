@@ -26,12 +26,12 @@ Route::add('/p/([A-Z]*)/([A-Z]*)/submit', function($ucitel, $predmet) {
   OtazkyController::zpracuj($predmet, $ucitel);
 }, 'post');
 
-Route::add('/t/([A-Z0-9]*)/([a-zA-Z]*)/([A-Z0-9]*)', function($trida, $predmet, $skupina) {
-  Controller::view("Otazky", $predmet, array($predmet, $trida, $skupina));
+Route::add('/t/([A-Z0-9]*)/([a-zA-Z]*)/([A-Z0-9%]*)', function($trida, $predmet, $skupina) {
+  Controller::view("Otazky", $predmet, array($predmet, $trida, $skupina, 'stylesheets' => ['otazky']));
 });
 
-Route::add('/p/([A-Z]*)/([A-Z]*)/submit', function($ucitel, $predmet) {
-  OtazkyController::zpracuj($predmet, $ucitel);
+Route::add('/t/([A-Z0-9]*)/([a-zA-Z]*)/([A-Z0-9%]*)/submit', function($trida, $predmet, $skupina) {
+  OtazkyController::zpracujUcitel($predmet, $trida, $skupina);
 }, 'post');
 
 Route::add('/unauthorized', function() {

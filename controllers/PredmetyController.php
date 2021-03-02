@@ -81,7 +81,7 @@ class PredmetyController extends Controller
             } else {
                 return true;
             }
-        }
+        } 
     }
 }
 

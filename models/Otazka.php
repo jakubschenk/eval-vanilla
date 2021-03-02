@@ -80,10 +80,20 @@ class Otazka
         echo '</div>';
     }
 
-    public static function vypisOtazky($predmet, $ucitel, array $otazky)
+    public static function vypisOtazkyStudent($predmet, $ucitel, array $otazky)
     {
-        echo '<h2>' . $predmet . ' - ' . $ucitel . '</h2>';
         echo '<form class="form mx-auto my-4 pb-2" action="/p/' . $ucitel . '/' . $predmet . '/submit" method="post">';
+        foreach ($otazky as $otazka) {
+            $o = new Otazka($otazka["id"], $otazka["druh"], $otazka["otazka"], $otazka["poradi"]);
+            $o->vypisOtazku();
+        }
+        echo '<input class="btn btn-secondary" type="submit" name="Odeslat" value="Submit">';
+        echo '</form>';
+    }
+
+    public static function vypisOtazkyUcitel($predmet, $trida, $skupina, array $otazky)
+    {
+        echo '<form class="form mx-auto my-4 pb-2" action="/t/' . $trida . '/' . $predmet . '/' . $skupina . '/submit" method="post">';
         foreach ($otazky as $otazka) {
             $o = new Otazka($otazka["id"], $otazka["druh"], $otazka["otazka"], $otazka["poradi"]);
             $o->vypisOtazku();
