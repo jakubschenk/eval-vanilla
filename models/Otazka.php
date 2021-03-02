@@ -3,16 +3,18 @@
 class Otazka
 {
     private $id;
+    private $poradi;
     private $druh;
     private $text;
     private $leva;
     private $prava;
     private $skolnirok;
 
-    public function __construct($id, $druh, $text)
+    public function __construct($id, $druh, $text, $poradi)
     {
         $this->id = $id;
         $this->druh = $druh;
+        $this->poradi = $poradi;
         $this->skolnirok = Config::getValueFromConfig("skolnirok_id");
         if ($this->druh == "otevřená") {
             $this->text = $text;
@@ -34,7 +36,7 @@ class Otazka
         } else if ($this->druh == "výběrová") {
 ?>
             <div class="card-header">
-                <h4 class="card-title my-auto"><?php echo $this->id . '. ' . $this->text; ?></h4>
+                <h4 class="card-title my-auto"><?php echo $this->poradi . '. ' . $this->text; ?></h4>
             </div>
             <div class="card-body row ml-0 mr-0 textFix">
                 <div class=""><?php echo $this->leva; ?></div>
@@ -42,7 +44,7 @@ class Otazka
                     <div class="form-check form-check-inline w-20">
                         <label class="form-check-label radio-label-vertical" for="1-<?php echo $this->id; ?>">
                             1
-                            <input type="radio" id="1-<?php echo $this->id; ?>" name="<?php echo $this->id; ?>" value="1">
+                            <input type="radio" id="1-<?php echo $this->id; ?>" name="<?php echo $this->id; ?>" value="1" required>
                         </label>
                     </div>
                     <div class="form-check form-check-inline w-20">
@@ -83,7 +85,7 @@ class Otazka
         echo '<h2>' . $predmet . ' - ' . $ucitel . '</h2>';
         echo '<form class="form mx-auto my-4 pb-2" action="/p/' . $ucitel . '/' . $predmet . '/submit" method="post">';
         foreach ($otazky as $otazka) {
-            $o = new Otazka($otazka["id"], $otazka["druh"], $otazka["otazka"]);
+            $o = new Otazka($otazka["id"], $otazka["druh"], $otazka["otazka"], $otazka["poradi"]);
             $o->vypisOtazku();
         }
         echo '<input class="btn btn-secondary" type="submit" name="Odeslat" value="Submit">';
@@ -92,12 +94,12 @@ class Otazka
 
     public static function vratOtazkyProStudenty()
     {
-        $otazky = Databaze::dotaz("SELECT * FROM studenti_otazky WHERE skolnirok LIKE ?", array(Config::getValueFromConfig("skolnirok_id")));
+        $otazky = Databaze::dotaz("SELECT * FROM studenti_otazky WHERE skolnirok LIKE ? order by poradi asc", array(Config::getValueFromConfig("skolnirok_id")));
         return $otazky;
     }
     public static function vratOtazkyProUcitele()
     {
-        $otazky = Databaze::dotaz("SELECT * FROM ucitele_otazky WHERE skolnirok LIKE ?", array(Config::getValueFromConfig("skolnirok_id")));
+        $otazky = Databaze::dotaz("SELECT * FROM ucitele_otazky WHERE skolnirok LIKE ? order by poradi asc", array(Config::getValueFromConfig("skolnirok_id")));
         return $otazky;
     }
 

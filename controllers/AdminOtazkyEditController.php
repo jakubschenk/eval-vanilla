@@ -29,7 +29,7 @@ class AdminOtazkyEditController extends AdminController
         <button class="btn btn-dark" type="button" data-toggle="collapse" data-target="#pridatOtazku" aria-expanded="false" aria-controls="pridaniOtazky">Přidat otázku</button>
         <div class="collapse my-2" id="pridatOtazku">
             <div class="card card-body form-group">
-                <label for="vyberDruhuNova">Vyber druh otázky: </label>
+                <label for="vyberDruhuNova">Vyberte druh otázky: </label>
                 <select name="vyberDruhu" class="form-control" id="vyberDruhuNova">
                     <option value="otevřená">Otevřená</option>
                     <option value="výběrová" selected>Výběřová</option>
@@ -43,56 +43,51 @@ class AdminOtazkyEditController extends AdminController
                 <button id="pridatNovaBtn" class="btn btn-dark" value="přidat">Přidat!</button>
             </div>
         </div>
-        <?php
-//         foreach ($otazky as $otazka) {
-//             $id = $otazka["id"];
-//             $druh = $otazka["druh"];
-//             $poradi = $otazka["poradi"];
-//             echo '<div class="otazka" id="div' . $id . '">';
-//             if ($druh == "otevřená") {
-//                 $text = $otazka["otazka"];
-//                 $leva = '';
-//                 $prava = '';
-//         ?>
-
-<!-- //                 echo '<p class="cisloOtazky">'. $poradi . '.</p>';
-//                 echo '<p class="textOtazky" id="textOtazky' . $id . '">' . $text . '</p>';
-//                 echo '<textarea id="textOtazkyInput' . $id . '" name="textOtazkyInput' . $id . '" hidden>' . $text . '</textarea>';
-//                 echo '<p id="druh' . $id . '">' . $druh . '</p>';
-//                 echo '<span class="levytext" id="levytext' . $id . '" hidden>' . $leva . '</span><br>';
-//                 echo '<textarea id="levytextInput' . $id . '" name="levytextInput' . $id . '" hidden>' . $leva . '</textarea>';
-//                 echo '<span class="pravytext" id="pravytext' . $id . '" hidden>' . $prava . '</span><br>';
-//                 echo '<textarea id="pravytextInput' . $id . '" name="pravytextInput' . $id . '" hidden>' . $prava . '</textarea>';
-//                 echo '<label for="vyberDruhu' . $id . '" hidden>Vyber druh otázky: </label>';
-//                 echo '<select name="vyberDruhu" id="vyberDruhu' . $id . '" onchange="editory['. $id . '].zmenTyp();" hidden>';
-//                     echo '<option value="otevřená" selected>Otevřená</option>';
-//                     echo '<option value="výběrová">Výběřová</option>';
-//                     echo '</select>'; -->
- <?php
-//             } else if ($druh == "výběrová") {
-//                 list($text, $leva, $prava) = explode(";", $otazka["otazka"], 3);
-//                 echo '<p class="cisloOtazky">' . $poradi . '.</p>';
-//                 echo '<p class="textOtazky" id="textOtazky' . $id . '" >' . $text . '</p>';
-//                 echo '<textarea id="textOtazkyInput' . $id . '" name="textOtazkyInput' . $id . '" hidden>' . $text . '</textarea>';
-//                 echo '<p id="druh' . $id . '">' . $druh . '</p>';
-//                 echo '<span class="levytext" id="levytext' . $id . '" >' . $leva . '</span><br>';
-//                 echo '<textarea id="levytextInput' . $id . '" name="levytextInput' . $id . '" hidden>' . $leva . '</textarea>';
-//                 echo '<span id="pravytext' . $id . '" >' . $prava . '</span><br>';
-//                 echo '<textarea id="pravytextInput' . $id . '" name="pravytextInput' . $id . '" hidden>' . $prava . '</textarea>';
-//                 echo '<label for="vyberDruhu' . $id . '" hidden>Vyber druh otázky: </label>';
-//                 echo '<select name="vyberDruhu" id="vyberDruhu' . $id . '" onchange="editory[' . $id . '].zmenTyp();" hidden>';
-//                 echo '<option value="otevřená">Otevřená</option>';
-//                 echo '<option value="výběrová" selected>Výběřová</option>';
-//                 echo '</select>';
-//             }
-//             echo '<button class="btn btn-dark text-light" id="editBtn' . $id . '" onclick="editory[' . $id . '].upravOtazku();">Upravit otázku</button>';
-//             echo '<button class="btn btn-dark text-light" id="delBtn' . $id . '" onclick="editory[' . $id . '].smazOtazku();">Smazat otázku</button>';
-//             echo '<button class="btn btn-dark text-light" id="ulozitOtazkuBtn' . $id . '" onclick="editory[' . $id . '].ulozOtazku();" hidden>Uložit otázku</button>';
-//             echo '</div>';
-//             echo '<script>otazkyIds.push(' . $id . ')</script>';
-//         }
-//         echo '<script>var pocetOtazek = ' . count($otazky) . ';</script>';
-     }
+        <div id="otazky">
+            <?php
+            foreach ($otazky as $otazka) {
+                $id = $otazka["id"];
+                $druh = $otazka["druh"];
+                $poradi = $otazka["poradi"];
+                if ($druh == "otevřená") {
+                    $text = $otazka["otazka"];
+                    $leva = '';
+                    $prava = '';
+                } else {
+                    list($text, $leva, $prava) = explode(";", $otazka["otazka"], 3);
+                }
+            ?>
+                <div class="card collapsed mx-auto my-2">
+                    <div class="card-header" id="otazkaNadpis<?php echo $id; ?>"  data-toggle="collapse" data-target="#otazka<?php echo $id; ?>" aria-expanded="false" aria-controls="otazka<?php echo $id; ?>">
+                        <h5 class="mb-0" id="nadpis<?php echo $id; ?>">
+                            <?php echo $poradi . '. ' . $text; ?>
+                        </h5>
+                    </div>
+                    <div id="otazka<?php echo $id; ?>" class="collapse" aria-labelledby="otazkaNadpis<?php echo $id; ?>" data-parent="#otazky">
+                        <div class="card-body">
+                            <label for="vyberDruhu<?php echo $id; ?>">Vyberte druh otázky: </label>
+                            <select name="vyberDruhu" class="form-control" id="vyberDruhu<?php echo $id; ?>">
+                                <option value="otevřená">Otevřená</option>
+                                <option value="výběrová">Výběřová</option>
+                            </select>
+                            <label for="textOtazkyInput<?php echo $id; ?>">Název otázky:</label>
+                            <textarea id="textOtazkyInput<?php echo $id; ?>" class="form-control" name="textOtazkyInput<?php echo $id; ?>"><?php echo $text; ?></textarea>
+                            <label for="levytextInput<?php echo $id; ?>">Levá strana hodnocení:</label>
+                            <textarea id="levytextInput<?php echo $id; ?>" class="form-control" name="levytextInput<?php echo $id; ?>"><?php echo $leva; ?></textarea>
+                            <label for="pravytextInput<?php echo $id; ?>">Pravá strana hodnocení:</label>
+                            <textarea id="pravytextInput<?php echo $id; ?>" class="form-control" name="pravytextInput<?php echo $id; ?>"><?php echo $prava; ?></textarea>
+                            <button class="btn btn-dark text-light mt-2" id="delBtn<?php echo $id; ?>">Smazat otázku</button>
+                            <button class="btn btn-dark text-light mt-2" id="ulozitOtazkuBtn<?php echo $id; ?>">Uložit otázku</button>
+                            <button class="btn btn-dark text-light mt-2" id="ukazZmenu<?php echo $id; ?>">Změnit číslo</button><br/>
+                            <label for="noveCisloPro<?php echo $id; ?>" class="mt-2 d-none">Nové číslo otázky:</label>
+                            <input type="number" class="form-control d-none" name="noveCisloPro<?php echo $id; ?>" id="noveCisloPro<?php echo $id; ?>" value="<?php echo $poradi; ?>">
+                            <button class="btn btn-dark text-light mt-2 d-none" id="zmenCislo<?php echo $id; ?>">OK!</button>
+                        </div>
+                    </div>
+                </div>
+            <?php
+            }
+    }
 
     public static function zapisUpravenouOtazku($data, $druh)
     {
@@ -126,9 +121,26 @@ class AdminOtazkyEditController extends AdminController
     {
         $skolrok = Config::getValueFromConfig("skolnirok_id");
         if ($druh == "ucitel") {
+            $otazka = Databaze::dotaz("SELECT * from ucitele_otazky WHERE id = ?", array($id));
+            Databaze::dotaz("UPDATE ucitele_otazky SET poradi = poradi-1 WHERE poradi > ? AND skolnirok LIKE ?", array($otazka[0]["poradi"], $skolrok));
             Databaze::dotaz("DELETE FROM ucitele_otazky WHERE skolnirok = ? AND id = ?", array($skolrok, $id));
         } else if ($druh == "student") {
+            $otazka = Databaze::dotaz("SELECT * from studenti_otazky WHERE id = ?", array($id));
+            Databaze::dotaz("UPDATE studenti_otazky SET poradi = poradi-1 WHERE poradi > ? AND skolnirok LIKE ?", array($otazka[0]["poradi"], $skolrok));
             Databaze::dotaz("DELETE FROM studenti_otazky WHERE skolnirok = ? AND id = ?", array($skolrok, $id));
+        }
+    }
+
+    public static function zmenCislo($id, $druh, $cisloStare, $cisloNove) {
+        $skolrok = Config::getValueFromConfig("skolnirok_id");
+        if ($druh == "ucitel") {
+            Databaze::dotaz("UPDATE ucitele_otazky SET poradi = 999 WHERE poradi = ?", array($cisloStare));
+            Databaze::dotaz("UPDATE ucitele_otazky SET poradi = ? WHERE poradi = ?", array($cisloStare, $cisloNove));
+            Databaze::dotaz("UPDATE ucitele_otazky SET poradi = ? WHERE poradi = 999", array($cisloNove));
+        } else if ($druh == "student") {
+            Databaze::dotaz("UPDATE studenti_otazky SET poradi = 999 WHERE poradi = ?", array($cisloStare));
+            Databaze::dotaz("UPDATE studenti_otazky SET poradi = ? WHERE poradi = ?", array($cisloStare, $cisloNove));
+            Databaze::dotaz("UPDATE studenti_otazky SET poradi = ? WHERE poradi = 999", array($cisloNove));
         }
     }
 }

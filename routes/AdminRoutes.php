@@ -7,7 +7,7 @@ Route::add('/administrace/login', function() {
 }, 'post');
   
 Route::add('/administrace/([a-z]*)/otazky/upravit', function($druh) {
-    AdminController::view("AdministraceOtazky", "Administrace", [$druh, 'stylesheets' => ['upravaOtazek'], 'js' => ['EditorOtazek', 'loadEditor']]);
+    AdminController::view("AdministraceOtazky", "Administrace", [$druh, 'stylesheets' => ['upravaOtazek'], 'js' => ['loadEditor']]);
 });
   
 Route::add('/administrace/([a-z]*)/otazky/ulozit', function($druh) {
@@ -24,6 +24,14 @@ Route::add('/administrace/([a-z]*)/otazky/smazat', function($druh) {
     $input = json_decode(file_get_contents('php://input'), true);
     $id = $input["id"];
     AdminOtazkyEditController::smazOtazku($id, $druh);
+}, 'post');
+
+Route::add('/administrace/([a-z]*)/otazky/zmenitCislo', function($druh) {
+    $input = json_decode(file_get_contents('php://input'), true);
+    $old= $input["old"];
+    $new = $input["new"];
+    $id = $input["id"];
+    AdminOtazkyEditController::zmenCislo($id, $druh, $old, $new);
 }, 'post');
   
 Route::add('/administrace/([a-z]*)/uzivatele/upravit', function($druh) {

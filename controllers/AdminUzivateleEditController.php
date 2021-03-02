@@ -43,62 +43,62 @@ class AdminUzivateleEditController extends AdminController
                     <th scope="col">Email</th>
                     <th scope="col">Jméno</th>
                     <?php
-                        if($druh == 'student')
-                            echo '<th scope="col">Třída</th>';
-                    ?>
-                    <th scope="col">Byl přihlášen?</th>
+                    if ($druh == 'student' || $druh == 'duplikat')
+                        echo '<th scope="col">Třída</th>';
+                    if ($druh != 'duplikat')
+                        echo '<th scope="col">Byl přihlášen?</th>';
+                    ?>         
                     <th scope="col">Změnit</th>
-                    <th scope="col">Smazat</th>
                 </tr>
             </thead>
             <tbody>
-<?php
-    }
+            <?php
+        }
 
-    public static function vypisUzivatele($uzivatel, $druh)
-    {
-        if ($druh == 'ucitel') {
-        ?>
-        <tr>
-            <td class="align-middle"><?php echo $uzivatel['id']; ?></td>
-            <td class="align-middle"><?php echo $uzivatel['email']; ?></td>
-            <td class="align-middle"><?php echo $uzivatel['jmeno'] . ' ' . $uzivatel['prijmeni']; ?></td>
-            <td class="align-middle"><?php echo ($uzivatel['gid'] != null) ? ('Ano') : ('Ne'); ?></td>
-            <td class="align-middle"><a class="btn btn-dark" href="<?php echo $uzivatel['id']; ?>/upravit">Upravit</a></td>
-            <td class="align-middle"><a class="btn btn-dark" href="<?php echo $uzivatel['id']; ?>/smazat">Smazat</a></td>
-        </tr>
+        public static function vypisUzivatele($uzivatel, $druh)
+        {
+            ?>
+                <tr>
+                    <td class="align-middle"><?php echo $uzivatel['id']; ?></td>
+                    <td class="align-middle"><?php echo $uzivatel['email']; ?></td>
+                    <td class="align-middle"><?php echo $uzivatel['jmeno'] . ' ' . $uzivatel['prijmeni']; ?></td>
+                    <?php
+
+                    if ($druh == 'student') {
+                    ?>
+                        <td class="align-middle"><?php echo $uzivatel['trida']; ?></td>
+                    <?php
+                    } else if ($druh == 'duplikat') {
+                    ?>
+                        <td class="align-middle"><?php echo $uzivatel['trida']; ?></td>
+                    <?php
+                    } else {
+                    ?>
+                        <td class="align-middle"><?php echo ($uzivatel['gid'] != null) ? ('Ano') : ('Ne'); ?></td>
+                    <?php
+                    }
+                    ?>
+                    <td class="align-middle"><a class="btn btn-dark" href="<?php echo $uzivatel['id']; ?>/upravit">Upravit</a></td>
+                </tr>
         <?php
-        } else if ($druh == 'student') {
-?>
-        <tr>
-            <td class="align-middle"><?php echo $uzivatel['id']; ?></td>
-            <td class="align-middle"><?php echo $uzivatel['email']; ?></td>
-            <td class="align-middle"><?php echo $uzivatel['jmeno'] . ' ' . $uzivatel['prijmeni']; ?></td>
-            <td class="align-middle"><?php echo $uzivatel['trida']; ?></td>
-            <td class="align-middle"><?php echo ($uzivatel['gid'] != null) ? ('Ano') : ('Ne'); ?></td>
-            <td class="align-middle"><a class="btn btn-dark" href="<?php echo $uzivatel['id']; ?>/upravit">Upravit</a></td>
-            <td class="align-middle"><a class="btn btn-dark" href="<?php echo $uzivatel['id']; ?>/smazat">Smazat</a></td>
-        </tr>
-<?php
         }
-    }
 
-    public static function vratDuplikaty()
-    {
-        $dotaz = Databaze::dotaz("SELECT d.id_studenta as id, s.trida as trida, s.email as email, s.jmeno as jmeno, s.prijmeni as prijmeni, s.gid as gid from duplikaty d inner join studenti s on s.id = d.id_studenta WHERE d.skolnirok LIKE ?", array(Config::getValueFromConfig("skolnirok_id")));
-        if ($dotaz != array()) {
-            return $dotaz;
-        } else {
-            return null;
+        public static function vratDuplikaty()
+        {
+            $dotaz = Databaze::dotaz("SELECT d.id_studenta as id, s.trida as trida, s.email as email, s.jmeno as jmeno, s.prijmeni as prijmeni, s.gid as gid from duplikaty d inner join studenti s on s.id = d.id_studenta WHERE d.skolnirok LIKE ?", array(Config::getValueFromConfig("skolnirok_id")));
+            if ($dotaz != array()) {
+                return $dotaz;
+            } else {
+                return null;
+            }
         }
-    }
 
-    public static function vypisUzivateleProEdit($id, $druh) {
-        if($druh == 'student') {
-            print_r(Databaze::dotaz("SELECT * from studenti where id like ?", array($id)));
-        } else {
-            print_r(Databaze::dotaz("SELECT * from ucitele where id like ?", array($id)));
+        public static function vypisUzivateleProEdit($id, $druh)
+        {
+            if ($druh == 'student') {
+                print_r(Databaze::dotaz("SELECT * from studenti where id like ?", array($id)));
+            } else if ($druh == 'ucitel') {
+                print_r(Databaze::dotaz("SELECT * from ucitele where id like ?", array($id)));
+            }
         }
-        
     }
-}
