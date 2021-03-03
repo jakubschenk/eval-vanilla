@@ -15,7 +15,6 @@
     ?>
     <title><?php echo ($pageName); ?></title>
 </head>
-
 <body>
 
     <nav class="navbar navbar-dark py-2">
@@ -34,5 +33,16 @@
                 </svg>
             </a>
     </nav>
+    <div id="mySidepanel" class="sidepanel">
+        <a id="closeMenu" class="closebtn btn">&times;</a>
+        <a href="/administrace">Procházet odpovědi</a>
+        <a href="/administrace/import">Import dat</a>
+        <a href="/administrace/import">Export dat</a>
+        <a href="/administrace/student/uzivatele/upravit">Upravit studenty</a>
+        <a href="/administrace/ucitel/uzivatele/upravit">Upravite učitele</a>
+        <a href="/administrace/student/otazky/upravit">Upravit otázky pro studenty</a>
+        <a href="/administrace/student/otazky/upravit">Upravit otázky pro učitele</a>
+    </div>
+    <button class="openbtn ml-2 mt-2 rounded" id="openMenu">&#9776;</button>
     <main>
         <div class="container obsah">

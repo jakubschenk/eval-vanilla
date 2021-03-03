@@ -53,7 +53,7 @@ class Student extends Uzivatel {
     }
 
     public static function getId($email) {
-        $id = Databaze::dotaz("SELECT id FROM studenti WHERE email LIKE ?", array($email));
+        $id = Databaze::dotaz("SELECT id FROM studenti WHERE email LIKE ? and skolnirok = ?", array($email, Config::getValueFromConfig("skolnirok_id")));
         return $id[0][0];
     }
 
