@@ -52,8 +52,8 @@ class AdminUzivateleEditController extends AdminController
                 </tr>
             </thead>
             <tbody>
-            <?php
-        }
+<?php
+    }
 
         public static function vypisUzivatele($uzivatel, $druh)
         {
@@ -65,8 +65,9 @@ class AdminUzivateleEditController extends AdminController
                     <?php
 
                     if ($druh == 'student') {
-                    ?>
+                    ?>                
                         <td class="align-middle"><?php echo $uzivatel['trida']; ?></td>
+                        <td class="align-middle"><?php echo ($uzivatel['gid'] != null) ? ('Ano') : ('Ne'); ?></td>
                     <?php
                     } else if ($druh == 'duplikat') {
                     ?>
@@ -96,9 +97,46 @@ class AdminUzivateleEditController extends AdminController
         public static function vypisUzivateleProEdit($id, $druh)
         {
             if ($druh == 'student') {
-                print_r(Databaze::dotaz("SELECT * from studenti where id like ?", array($id)));
+                echo '<h2 class="mb-2">Upravit studenta</h2>';
+                $uzivatel = Databaze::dotaz("SELECT * from studenti where id like ?", array($id))[0];
+                ?>
+                    <div class="card" id="uzivatel">
+                        <div class="card-header">
+                            <?php echo $uzivatel["trida"] . ' - ' . $uzivatel["jmeno"] . ' ' . $uzivatel["prijmeni"]; ?>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group form-group-lg">
+                            <form action="/administrace/<?php echo $druh;?>/uzivatele/<?php echo $id?>/upravit" method="post">
+                                <label for="email">Email: </label>
+                                <input type="text" class="form-control" name="email" id="email" value="<?php echo $uzivatel["email"]; ?>"/>
+                                <button type="submit" class="mt-2 btn btn-dark float-sm-right">Aktualizovat!</button>
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+                <?php
             } else if ($druh == 'ucitel') {
                 print_r(Databaze::dotaz("SELECT * from ucitele where id like ?", array($id)));
             }
+        }
+
+        public static function aktualizujUzivatele($id, $druh, $novyEmail) {
+            if($druh == "student") {
+                $dup = AdminUzivateleEditController::vratDuplikaty();
+                $found = 0;
+                foreach($dup as $d) {
+                    if(in_array($id, $d)) {
+                        $found = 1;
+                        break;
+                    }
+                }
+                Databaze::dotaz("UPDATE studenti SET email = ? WHERE id LIKE ?", array($novyEmail, $id));
+                if($found = 1) {
+                    Databaze::dotaz("DELETE FROM duplikaty WHERE id_studenta LIKE ?", array($id));
+                }
+            } else if ($druh == "ucitel") {
+                Databaze::dotaz("UPDATE ucitele SET email = ? WHERE id LIKE ?", array($novyEmail, $id));
+            } 
+            header("Location: /administrace/".$druh."/uzivatele/upravit");
         }
     }

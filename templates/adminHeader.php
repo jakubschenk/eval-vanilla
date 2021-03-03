@@ -35,4 +35,4 @@
             </a>
     </nav>
     <main>
-        <div class="container">
+        <div class="container obsah">

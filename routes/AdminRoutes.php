@@ -41,7 +41,17 @@ Route::add('/administrace/([a-z]*)/uzivatele/upravit', function($druh) {
 Route::add('/administrace/([a-z]*)/uzivatele/([A-Z0-9]*)/upravit', function($druh, $id) {
     AdminUzivateleEditController::view("AdministraceUzivatelEdit", "Úprava uživatelů", [$druh, $id, 'stylesheets' => ['upravaUzivatelu']]);
 });
-  
+
+Route::add('/administrace/([a-z]*)/uzivatele/([A-Z0-9]*)/upravit', function($druh, $id) {
+    if(isset($_POST["email"])) {
+        $novy = $_POST["email"];
+        AdminUzivateleEditController::aktualizujUzivatele($id, $druh, $novy);
+    } else {
+        header("Location: /administrace");
+    }
+
+}, 'post');
+
 Route::add('/administrace/login', function() {
     AdminLoginController::viewStatic('AdministraceLogin', "Přihlášení");
 }, 'get');
