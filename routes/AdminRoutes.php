@@ -84,3 +84,19 @@ Route::add('/administrace/import', function() {
 Route::add('/administrace/importing', function() {
     AdminController::view("AdministraceNahravaniDatabaze", "Nahrávání..", array());
 }, 'post', 'get');
+
+Route::add('/administrace/prohlizeni', function() {
+    AdminController::view("AdministraceProhlizeni", "Prohlížení odpovědí", array('js' => ['prohlizecOtazek']));
+});
+
+Route::add('/administrace/prohlizeni/zmenProhlizenyRok', function() {
+    if(isset($_SESSION["admin"])) {
+        $input = json_decode(file_get_contents('php://input'), true);
+        $_SESSION["viewedRok"] = $input["rok"];
+    }
+}, 'post');
+
+Route::add('/administrace/prohlizeni/getOtazkaStatStudent', function() {
+    $input = json_decode(file_get_contents('php://input'), true);
+    AdminProhlizeniController::vratOtazkyStudent($input['q']);
+}, 'post');

@@ -82,6 +82,12 @@ main {
     padding-top: 60px;
     transition: 0.5s;
   }
+
+  @media (max-width: 1400px) {
+      .sidepanel {
+          width: 0px;
+      }
+  }
   
   .sidepanel a {
     padding: 8px 8px 8px 32px;

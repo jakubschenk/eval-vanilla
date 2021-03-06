@@ -35,7 +35,8 @@
     </nav>
     <div id="mySidepanel" class="sidepanel">
         <a id="closeMenu" class="closebtn btn">&times;</a>
-        <a href="/administrace">Procházet odpovědi</a>
+        <a href="/administrace">Domů</a>
+        <a href="/administrace/prohlizeni">Procházet odpovědi</a>
         <a href="/administrace/import">Import dat</a>
         <a href="/administrace/import">Export dat</a>
         <a href="/administrace/student/uzivatele/upravit">Upravit studenty</a>

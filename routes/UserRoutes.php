@@ -14,8 +14,8 @@ Route::add('/fakelogin', function() {
   // $_SESSION['email'] = 'r.nowak@spseiostrava.cz';
   // $_SESSION['id'] = Ucitel::getId($_SESSION['email']);
   // $_SESSION['druh'] = 'ucitel';
-  $_SESSION['email'] = 'a.krajcovic.st@spseiostrava.cz';
-  $_SESSION['id'] = 444;
+  $_SESSION['email'] = 'm.scupak.st@spseiostrava.cz';
+  $_SESSION['id'] = 1738;
   $_SESSION['druh'] = 'student';
   $_SESSION['access_token'] = "XD";
   header('Location: /');
