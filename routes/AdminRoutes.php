@@ -2,10 +2,39 @@
 
 use Steampixel\Route;
 
+//root administrace(login/mainscreen)
+Route::add('/administrace', function() {
+    $pageName = "Administrace";
+    AdminController::view("Administrace", $pageName, array());
+});
+
+//login screen
+Route::add('/administrace/login', function() {
+    AdminLoginController::viewStatic('AdministraceLogin', "Přihlášení");
+}, 'get');
+
+//login post
 Route::add('/administrace/login', function() {
     AdminLoginController::loginAdmin();
 }, 'post');
-  
+
+//registrace noveho uzivatele
+Route::add('/administrace/registrace', function() {
+    AdminRegisterController::view("AdministraceRegistrace", "Registrace", array());
+}, 'get');
+
+//zpracovani requestu registrace
+Route::add('/administrace/registrace', function() {
+    if(Administrator::authenticated())
+        AdminRegisterController::registerAdmin();
+}, 'post');
+
+//odhlaseni
+Route::add('/administrace/logout', function() {
+    AdminController::logout();
+});
+
+//uprava otazek
 Route::add('/administrace/([a-z]*)/otazky/upravit', function($druh) {
     AdminController::view("AdministraceOtazky", "Administrace", [$druh, 'stylesheets' => ['upravaOtazek'], 'js' => ['loadEditor']]);
 });
@@ -34,6 +63,7 @@ Route::add('/administrace/([a-z]*)/otazky/zmenitCislo', function($druh) {
     AdminOtazkyEditController::zmenCislo($id, $druh, $old, $new);
 }, 'post');
   
+//uprava ucitelu
 Route::add('/administrace/([a-z]*)/uzivatele/upravit', function($druh) {
     AdminUzivateleEditController::view("AdministraceUzivatele", "Úprava uživatelů", [$druh, 'stylesheets' => ['upravaUzivatelu']]);
 });
@@ -52,30 +82,7 @@ Route::add('/administrace/([a-z]*)/uzivatele/([A-Z0-9]*)/upravit', function($dru
 
 }, 'post');
 
-Route::add('/administrace/login', function() {
-    AdminLoginController::viewStatic('AdministraceLogin', "Přihlášení");
-}, 'get');
-  
-if($cfg['adminReg']) {
-    Route::add('/administrace/registrace', function() {
-      $pageName = "Registrace";
-      AdminRegisterController::view("AdministraceRegistrace", "Registrace", array());
-    }, 'get');
-
-    Route::add('/administrace/registrace', function() {
-      AdminRegisterController::registerAdmin();
-    }, 'post');
-}
-  
-Route::add('/administrace/logout', function() {
-    AdminController::logout();
-});
-  
-Route::add('/administrace', function() {
-    $pageName = "Administrace";
-    AdminController::view("Administrace", $pageName, array());
-});
-  
+//import
 Route::add('/administrace/import', function() {
     $pageName = "Administrace";
     AdminController::view("AdministraceImport", $pageName, array());
@@ -85,12 +92,13 @@ Route::add('/administrace/importing', function() {
     AdminController::view("AdministraceNahravaniDatabaze", "Nahrávání..", array());
 }, 'post', 'get');
 
+//prohlizeni odpovedi
 Route::add('/administrace/prohlizeni', function() {
     AdminController::view("AdministraceProhlizeni", "Prohlížení odpovědí", array('js' => ['prohlizecOtazek']));
 });
 
 Route::add('/administrace/prohlizeni/zmenProhlizenyRok', function() {
-    if(isset($_SESSION["admin"])) {
+    if(Administrator::authenticated()) {
         $input = json_decode(file_get_contents('php://input'), true);
         $_SESSION["viewedRok"] = $input["rok"];
     }
@@ -99,4 +107,19 @@ Route::add('/administrace/prohlizeni/zmenProhlizenyRok', function() {
 Route::add('/administrace/prohlizeni/getOtazkaStatStudent', function() {
     $input = json_decode(file_get_contents('php://input'), true);
     AdminProhlizeniController::vratOtazkyStudent($input['q']);
+}, 'post');
+
+//nastaveni
+Route::add('/administrace/nastaveni', function() {
+    AdminSettingsController::view('AdministraceNastaveni', "Nastavení",
+        array('stylesheet' => ['nastaveni'], 'js' => ['nastaveni']));
+});
+
+Route::add('/administrace/nastaveni/zmenDatum', function() {
+    $input = json_decode(file_get_contents('php://input'), true);
+    $datum_od = $input["datum_od"];   
+    $datum_do = $input["datum_do"];
+
+    if(Administrator::authenticated())
+        AdminSettingsController::nastavitDatum($datum_od, $datum_do);
 }, 'post');

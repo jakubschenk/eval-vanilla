@@ -16,7 +16,7 @@ class AdminController {
     }
 
     public static function view($name, $title, array $args) {
-        if (isset($_SESSION['admin'])) {
+        if (Administrator::authenticated()) {
             $pageName = $title;
             require_once 'templates/adminHeader.php';
             require_once 'views/'. $name . '.php';

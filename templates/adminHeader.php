@@ -43,6 +43,7 @@
         <a href="/administrace/ucitel/uzivatele/upravit">Upravite učitele</a>
         <a href="/administrace/student/otazky/upravit">Upravit otázky pro studenty</a>
         <a href="/administrace/student/otazky/upravit">Upravit otázky pro učitele</a>
+        <a href="/administrace/nastaveni">Nastavení</a>
     </div>
     <button class="openbtn ml-2 mt-2 rounded" id="openMenu">&#9776;</button>
     <main>

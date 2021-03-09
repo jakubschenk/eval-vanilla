@@ -2,6 +2,7 @@
 
 class AdminRegisterController extends AdminController {
     public static function registerAdmin() {
+        if(isset($_SESSION['admin']))
         $admin_reg_login = $_POST['regLogin'];
         $admin_reg_email = $_POST['regEmail'];
         $admin_reg_pass = $_POST['regPassword'];

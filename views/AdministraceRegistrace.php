@@ -1,6 +1,3 @@
-<?php
-require_once 'templates/header.php';
-?>
 
 <form action="/administrace/registrace" method="post">
     <label for="regLogin">Jméno: </label>
@@ -11,7 +8,3 @@ require_once 'templates/header.php';
     <input type="password" id="regPassword" name="regPassword" required>
     <input type="submit" value="Registrovat">
 </form>
-
-<?php
-require_once 'templates/footer.php';
-?>
