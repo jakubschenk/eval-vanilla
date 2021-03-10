@@ -28,4 +28,51 @@ $(document).ready(function() {
         } 
     }); 
 
+    $('#zmenHesloBtn').click(async function() {
+        var stare = $("#heslo_stare");
+        var nove = $("#heslo_nove");
+        var nove_2 = $("#heslo_nove_potvrdit");
+
+        let heslo = {
+            "stare": stare.val(),
+            "nove": nove.val()
+        }
+
+        if(nove.val() == nove_2.val()) {
+            await fetch('nastaveni/zmenHeslo', {
+                method:"POST",
+                mode:"same-origin",
+                credentials: "same-origin", 
+                headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(heslo)
+            })
+            .then(response => console.log(response))
+            .catch(err => console.log(err));
+
+            location.reload();
+        } else {
+            alert("Hesla se neshodují!");
+        }
+    });
+
+    async function smazAdmina(jmeno) {
+        var admin = { "admin": jmeno }
+
+        await fetch('nastaveni/smazAdmina', {
+            method:"POST",
+            mode:"same-origin",
+            credentials: "same-origin", 
+            headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(admin)
+        })
+        .then(response => console.log(response))
+        .catch(err => console.log(err));
+
+        location.reload();
+    }
+
 });

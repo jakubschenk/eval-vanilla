@@ -50,4 +50,12 @@ class Administrator {
         else
             return false;
     }
+
+    public static function vratAdministratory() {
+        return Databaze::dotaz("SELECT * from administratori");
+    }
+
+    public static function smazAdministratora($jmeno) {
+        Databaze::dotaz("DELETE FROM adminstratori where jmeno like ?", array($jmeno));
+    }
 }

@@ -2,8 +2,7 @@
 
 class AdminSettingsController extends AdminController {
     public static function zmenitHeslo($stareHeslo, $noveHeslo) {
-        return Administrator::zmenHeslo($_SESSION['login'], $stareHeslo, $noveHeslo);
-        header("Location: /adminstrace/logout");   
+        return Administrator::zmenHeslo($_SESSION['login'], $stareHeslo, $noveHeslo); 
     }
 
     public static function nastavitDatum($zacatek, $konec) {
@@ -11,7 +10,7 @@ class AdminSettingsController extends AdminController {
         Config::setValueInConfig("pristup_do", $konec);
     }
 
-    public static function vytvorUzivatele() {
-
+    public static function smazAdministratora($jmeno) {
+        Administrator::smazAdministratora($jmeno);
     }
 }

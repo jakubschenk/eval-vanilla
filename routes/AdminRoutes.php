@@ -123,3 +123,24 @@ Route::add('/administrace/nastaveni/zmenDatum', function() {
     if(Administrator::authenticated())
         AdminSettingsController::nastavitDatum($datum_od, $datum_do);
 }, 'post');
+
+Route::add('/administrace/nastaveni/zmenHeslo', function() {
+    $input = json_decode(file_get_contents('php://input'), true);
+    $stare = $input["stare"];   
+    $nove = $input["nove"];
+
+    if(Administrator::authenticated())
+        if(AdminSettingsController::zmenitHeslo($stare, $nove))
+            header("Location: /administrace/logout");  
+
+        
+}, 'post');
+
+Route::add('/administrace/nastaveni/smazAdmina', function() {
+    $input = json_decode(file_get_contents('php://input'), true);
+    $jmeno = $input["jmeno"];   
+
+    if(Administrator::authenticated())
+        AdminSettingsController::smazAdministratora($jmeno);
+     
+}, 'post');
