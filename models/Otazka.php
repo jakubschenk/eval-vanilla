@@ -28,7 +28,7 @@ class Otazka
         echo '<div class="card otazka mb-4" id="div' . $this->id . '">';
         if ($this->druh == "otevřená") {
             echo '<div class="card-header">';
-            echo '<h4 class="card-title my-auto">' . $this->id . '. '  . $this->text . '</h4>';
+            echo '<h4 class="card-title my-auto">' . $this->poradi . '. '  . $this->text . '</h4>';
             echo '</div>';
             echo '<div class="container mx-auto card-body">';
             echo '<textarea class="form-control" id="text' . $this->id . '" name="' . $this->id . '"></textarea>';
@@ -130,5 +130,13 @@ class Otazka
     public static function pridejOtazkuUciteli($id, $otazka, $druh, $skolnirok)
     {
         Databaze::dotaz("INSERT INTO ucitele_otazky(poradi, otazka, druh, skolnirok) VALUES(?, ?, ?, ?)", array($id, $otazka, $druh, $skolnirok));
+    }
+
+    public static function prenesOtazky($staryRok, $novyRok) {
+        Databaze::dotaz("INSERT INTO studenti_otazky(poradi, otazka, druh, skolnirok)
+                         SELECT poradi, otazka, druh, ? as skolnirok FROM studenti_otazky WHERE skolnirok = ?", array($novyRok, $staryRok));
+
+        Databaze::dotaz("INSERT INTO ucitele_otazky(poradi, otazka, druh, skolnirok)
+                         SELECT poradi, otazka, druh, ? as skolnirok FROM ucitele_otazky WHERE skolnirok = ?", array($novyRok, $staryRok));
     }
 }

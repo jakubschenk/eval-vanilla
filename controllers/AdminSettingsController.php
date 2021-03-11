@@ -6,11 +6,14 @@ class AdminSettingsController extends AdminController {
     }
 
     public static function nastavitDatum($zacatek, $konec) {
-        Config::setValueInConfig("pristup_od", $zacatek);
-        Config::setValueInConfig("pristup_do", $konec);
+        Config::setPristup($zacatek, $konec);
     }
 
     public static function smazAdministratora($jmeno) {
         Administrator::smazAdministratora($jmeno);
+    }
+
+    public static function zmenSkolniRok($skolnirok) {
+        Config::setSkolniRok($skolnirok);    
     }
 }

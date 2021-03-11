@@ -1,5 +1,5 @@
 <?php
 
-echo "NAHRAVAM DATABAZI PLS CEKEJ";
+echo "Nahrávání databáze prosím čekejte";
 new AdminImportController();
 ?>

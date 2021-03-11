@@ -8,12 +8,10 @@ if(isset($_GET["error"])) {
 } else {
 ?>
 
-<form action="/administrace/importing" method="post" enctype="multipart/form-data">
-    <label for="xmlfile">Zvolte soubor pro XML Import</label>
-    <input type="file" name="xmlfile" accept=".xml" required>
-    <label for="rok">Zadejte školní rok: </label>
-    <input type="text" name="rok" required>
-    <input type="submit" value="Nahrát do databáze">
+<form class="form-group" action="/administrace/importing" method="post" enctype="multipart/form-data">
+    <label for="xmlfile">Zvolte soubor pro XML Import:</label>
+    <input class="form-control-file" type="file" name="xmlfile" accept=".xml" required>
+    <input class="btn btn-dark mt-2" type="submit" value="Nahrát do databáze">
 </form>
 
 <?php

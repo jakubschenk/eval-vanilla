@@ -108,7 +108,7 @@ class AdminOtazkyEditController extends AdminController
                 $poradi = 1;
             Otazka::pridejOtazkuStudentovi($poradi, $data["text"], $data["druh"], $skolrok);
         } else if ($druh == "ucitel") {
-            $poradi = Databaze::dotaz("SELECT id FROM ucitele_otazky WHERE skolnirok LIKE ? ORDER BY id DESC LIMIT 1", array($skolrok));
+            $poradi = Databaze::dotaz("SELECT poradi FROM ucitele_otazky WHERE skolnirok LIKE ? ORDER BY id DESC LIMIT 1", array($skolrok));
             if ($poradi != null)
                 $poradi = $poradi[0][0] + 1;
             else

@@ -3,7 +3,7 @@ $('#closeMenu').click(function () {
 });
 
 $('#openMenu').click(function () {
-    $('#mySidepanel').width(300);
+    $('#mySidepanel').width(320);
 });
 
 $(window).scroll(function() {

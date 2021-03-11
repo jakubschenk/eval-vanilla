@@ -93,8 +93,12 @@ Route::add('/administrace/importing', function() {
 }, 'post', 'get');
 
 //prohlizeni odpovedi
-Route::add('/administrace/prohlizeni', function() {
-    AdminController::view("AdministraceProhlizeni", "Prohlížení odpovědí", array('js' => ['prohlizecOtazek']));
+Route::add('/administrace/prohlizeni/student', function() {
+    AdminController::view("AdministraceProhlizeniStudent", "Prohlížení odpovědí", array('js' => ['prohlizecOtazek']));
+});
+
+Route::add('/administrace/prohlizeni/ucitel', function() {
+    AdminController::view("AdministraceProhlizeniUcitel", "Prohlížení odpovědí", array('js' => ['prohlizecOtazek']));
 });
 
 Route::add('/administrace/prohlizeni/zmenProhlizenyRok', function() {
@@ -107,6 +111,11 @@ Route::add('/administrace/prohlizeni/zmenProhlizenyRok', function() {
 Route::add('/administrace/prohlizeni/getOtazkaStatStudent', function() {
     $input = json_decode(file_get_contents('php://input'), true);
     AdminProhlizeniController::vratOtazkyStudent($input['q']);
+}, 'post');
+
+Route::add('/administrace/prohlizeni/getOtazkaStatUcitel', function() {
+    $input = json_decode(file_get_contents('php://input'), true);
+    AdminProhlizeniController::vratOtazkyUcitel($input['q']);
 }, 'post');
 
 //nastaveni
@@ -143,4 +152,13 @@ Route::add('/administrace/nastaveni/smazAdmina', function() {
     if(Administrator::authenticated())
         AdminSettingsController::smazAdministratora($jmeno);
      
+}, 'post');
+
+Route::add('/administrace/nastaveni/zmenSkolniRok', function() {
+    if(Administrator::authenticated())
+        if(isset($_POST["skolnirok"]))
+            AdminSettingsController::zmenSkolniRok($_POST["skolnirok"]);
+
+    echo print_r($_POST);
+    header("Location: /administrace/nastaveni");
 }, 'post');

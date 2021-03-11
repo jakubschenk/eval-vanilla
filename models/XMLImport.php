@@ -7,26 +7,28 @@ class XMLImport {
     private $logfile;
     private $xml_file;
 
-    public function __construct($xml_file, $rok, $log) {
-        set_time_limit(1000);
-        $this->skolnirok = $rok;
+    public function __construct($xml_file, $log) {
+        set_time_limit(1000); // import trval dlouho, rozsireni delky casu
         $this->logfile = $log;
         $this->xml_file = $xml_file;
+        $data = $this->nactiXML(); //nacteni xml souboru od administratora
+        $this->skolnirok = $data->SkolniRok;
+        fwrite($this->logfile, $data->SkolniRok . '\n');
 
-        if(($this->skolnirok_id = $this->vytvorRok()) != null) {
-            Config::setValueInConfig("skolnirok", $this->skolnirok);
-            Config::setValueInConfig("skolnirok_id", $this->skolnirok_id);
-            $data = $this->nactiXML();
-        
+        if(($this->skolnirok_id = $this->vytvorRok()) != null) { //vytvoreni skolniho roku
+            $staryRok = Config::getSkolniRok();
+            Config::setSkolniRok($this->skolnirok_id); //nastaveni noveho skolniho roku
+            Config::setPristup(null, null); //nastaveni uzivatelskeho pristupu na null - nastavuje administrator
             $this->nahrajPredmety($data->Predmety);
             $this->nahrajUcitele($data->Ucitele);
             $this->nahrajStudenty($data->Studenti);
+            Otazka::prenesOtazky($staryRok, $this->skolnirok_id); //preneseni otazek z minuleho roku
 
-            fwrite($this->logfile, "\n". date("Ymd_h-i-s") . " IMPORT DOKONCEN");
+            fwrite($this->logfile, date("Ymd_h-i-s") . " IMPORT DOKONCEN\n");
             set_time_limit(120);
             header("Location: /administrace/import?success");
         } else {
-            fwrite($this->logfile, "SKOLNI ROK JIZ EXISTUJE, UKONCUJI");
+            fwrite($this->logfile, "SKOLNI ROK JIZ EXISTUJE, UKONCUJI\n");
             set_time_limit(120);
             header('Location: /administrace/import?error');
         }
@@ -69,7 +71,7 @@ class XMLImport {
             }
             if($nalezy > 1) {
                     $duplikaty[] = $student->Email;
-                    fwrite($this->logfile, "\nVkladam do duplikatu: ". $student->Email);
+                    fwrite($this->logfile, "\nVkladam do duplikatu: ". $student->Email ."\n");
             }
             $nalezy = 0;
         }

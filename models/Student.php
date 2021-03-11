@@ -60,4 +60,8 @@ class Student extends Uzivatel {
     public static function vratStudenty() {
         return Databaze::dotaz("SELECT * from studenti where skolnirok like ? order by trida asc", array(Config::getValueFromConfig('skolnirok_id')));
     }
+
+    public static function vratPocetVyplnenychDotazniku($skolnirok) {
+        return Databaze::dotaz("SELECT sum(vyplneno) as pocet, count(vyplneno) as celkem from studenti_predmety where skolnirok like ?", array($skolnirok))[0];
+    }
 }

@@ -18,8 +18,7 @@ class AdminImportController extends AdminController{
 
         $this->nahratSoubor();
 
-        $this->skolnirok = $_POST['rok'];
-        $this->import = new XMLImport($this->xml_filepath, $this->skolnirok, $this->logfile);
+        $this->import = new XMLImport($this->xml_filepath, $this->logfile);
     }
 
 

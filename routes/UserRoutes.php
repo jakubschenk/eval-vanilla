@@ -7,11 +7,7 @@ Route::add('/unauthorized', function () {
   Controller::viewStatic('UnauthorizedUser', "Nepovoleno!");
 });
 
-$pristup_od = new DateTime(Config::getValueFromConfig("pristup_od"), new DateTimeZone("Europe/Prague"));
-$pristup_do = new DateTime(Config::getValueFromConfig("pristup_do"), new DateTimeZone("Europe/Prague"));
-$ted = new DateTime("now", new DateTimeZone("Europe/Prague"));
-
-if ($ted > $pristup_od && $ted < $pristup_do) {
+if (Cas::isPristup() == 1) {
   //base cesta (autentizace, prohlizeni predmetu)
   Route::add('/', function () {
     if (isset($_SESSION['access_token'])) {
@@ -22,12 +18,12 @@ if ($ted > $pristup_od && $ted < $pristup_do) {
   });
 
   Route::add('/fakelogin', function () {
-    // $_SESSION['email'] = 'r.nowak@spseiostrava.cz';
-    // $_SESSION['id'] = Ucitel::getId($_SESSION['email']);
-    // $_SESSION['druh'] = 'ucitel';
-    $_SESSION['email'] = 'm.scupak.st@spseiostrava.cz';
-    $_SESSION['id'] = 1738;
-    $_SESSION['druh'] = 'student';
+    $_SESSION['email'] = 'r.nowak@spseiostrava.cz';
+    $_SESSION['id'] = Ucitel::getId($_SESSION['email']);
+    $_SESSION['druh'] = 'ucitel';
+    //$_SESSION['email'] = 'm.scupak.st@spseiostrava.cz';
+    //$_SESSION['id'] = 1738;
+    //$_SESSION['druh'] = 'student';
     $_SESSION['access_token'] = "XD";
     header('Location: /');
   });

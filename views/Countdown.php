@@ -20,7 +20,7 @@
                 </div>
             </div>
         </div>
-        <div class="fade-in-delay">
+        <div class="fade-in-delay container justify-content-center">
             <h5>Čas do přístupu: </h5>
             <div id="clock">
             </div>
