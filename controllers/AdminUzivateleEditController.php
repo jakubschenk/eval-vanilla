@@ -116,7 +116,24 @@ class AdminUzivateleEditController extends AdminController
                     </div>
                 <?php
             } else if ($druh == 'ucitel') {
-                print_r(Databaze::dotaz("SELECT * from ucitele where id like ?", array($id)));
+                echo '<h2 class="mb-2">Upravit učitele</h2>';
+                $uzivatel = Databaze::dotaz("SELECT * from ucitele where id like ?", array($id));
+                ?>
+                    <div class="card" id="uzivatel">
+                        <div class="card-header">
+                            <?php echo $uzivatel["trida"] . ' - ' . $uzivatel["jmeno"] . ' ' . $uzivatel["prijmeni"]; ?>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group form-group-lg">
+                            <form action="/administrace/<?php echo $druh;?>/uzivatele/<?php echo $id?>/upravit" method="post">
+                                <label for="email">Email: </label>
+                                <input type="text" class="form-control" name="email" id="email" value="<?php echo $uzivatel["email"]; ?>"/>
+                                <button type="submit" class="mt-2 btn btn-dark float-sm-right">Aktualizovat!</button>
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+                <?php
             }
         }
 

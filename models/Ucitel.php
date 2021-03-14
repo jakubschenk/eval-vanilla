@@ -10,10 +10,12 @@ class Ucitel extends Uzivatel {
         $zkratka = $data->Zkratka;
         $skol_rok = Config::getValueFromConfig("skolnirok_id");
 
-        $exists = Databaze::dotaz("SELECT * FROM ucitele WHERE email LIKE ?", array($email));
-        if($exists == null) {
+        $exists = Databaze::dotaz("SELECT * FROM ucitele WHERE id LIKE ?", array($zkratka));
+        if($exists != array()) {
+            Databaze::dotaz("UPDATE ucitele SET skolnirok = ? WHERE id LIKE ?", array($skol_rok, $zkratka)); 
+        } else {
             Databaze::dotaz("INSERT INTO ucitele(id, jmeno, prijmeni, titul, email, skolnirok) VALUES(?,?,?,?,?,?)",
-                array($zkratka, $jmeno, $prijmeni, $titul, $email, $skol_rok));
+                array($zkratka, $jmeno, $prijmeni, $titul, $email, $skol_rok));               
         }
         Ucitel::propojPredmety($data);
     }
