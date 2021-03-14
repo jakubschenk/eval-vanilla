@@ -3,11 +3,22 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
 <script src="/public/js/backButton.js"></script>
 <?php
-if(isset($args["js"])) {
-    foreach($args["js"] as $js) {
-        echo '<script src="/public/js/'.$js.'.js"></script>';
+if (isset($args["js"])) {
+    foreach ($args["js"] as $js) {
+        echo '<script src="/public/js/' . $js . '.js"></script>';
     }
 }
 ?>
+<footer class="">
+    <div class="my-5 mx-5 d-flex flex-row justify-content-between">
+        <div class="text-secondary">
+            Autor: Jakub Schenk
+        </div>
+        <div class="text-secondary">
+            Školní rok: <?php echo Config::getValueFromConfig("skolnirok") ?>
+        </div>
+    </div>
+</footer>
 </body>
+
 </html>
