@@ -118,6 +118,12 @@ Route::add('/administrace/prohlizeni/getOtazkaStatUcitel', function() {
     AdminProhlizeniController::vratOtazkyUcitel($input['q']);
 }, 'post');
 
+//mazani dotazniku
+Route::add('/administrace/student/prohlizeni/smaz/([A-Za-z0-9-]*)', function($object) {
+    if(Administrator::authenticated())
+        AdminProhlizeniController::smazOdpovediStudent($object);
+});
+
 //nastaveni
 Route::add('/administrace/nastaveni', function() {
     AdminSettingsController::view('AdministraceNastaveni', "Nastavení",

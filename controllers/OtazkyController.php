@@ -50,7 +50,7 @@ class OtazkyController extends Controller
     public static function zpracuj($predmet, $ucitel)
     {
         if (!PredmetyController::vyplneno($predmet, $ucitel, $_SESSION["email"], $_SESSION["druh"]) && $_SESSION["druh"] == 'student') {
-            $dotaz = "INSERT INTO studenti_odpovedi(id_p, id_u, id_o, trida, skupina, odpoved) VALUES";
+            $dotaz = "INSERT INTO studenti_odpovedi(id_p, id_u, id_o, trida, skupina, odpoved, datum) VALUES";
             $skupina = Databaze::dotaz(
                 "SELECT skupina from studenti_predmety where id_s = ? and id_u = ? and id_p = ? and skolnirok = ?",
                 array($_SESSION["id"], $ucitel, $predmet, Config::getValueFromConfig("skolnirok_id"))
@@ -58,7 +58,7 @@ class OtazkyController extends Controller
             $trida = Databaze::dotaz("SELECT trida from studenti where id = ? and skolnirok = ?", array($_SESSION["id"], Config::getValueFromConfig("skolnirok_id")));
             foreach ($_POST as $key => $value) {
                 if ($key != "Odeslat") {
-                    $dotaz = $dotaz . '("' . $predmet . '","' . $ucitel . '",' . $key . ',"' . $trida[0]["trida"] . '","' . $skupina[0]["skupina"] . '","' . htmlspecialchars($value) . '"),';
+                    $dotaz = $dotaz . '("' . $predmet . '","' . $ucitel . '",' . $key . ',"' . $trida[0]["trida"] . '","' . $skupina[0]["skupina"] . '","' . htmlspecialchars($value) . '","' . date('Y-m-d H:i:s') .'"),';
                 }
             }
 
@@ -73,11 +73,11 @@ class OtazkyController extends Controller
     public static function zpracujUcitel($predmet, $trida, $skupina)
     {
         if (Databaze::dotaz("SELECT vyplneno FROM ucitele_predmety where id_u = ? and id_p like ? and trida like ? and skupina like ? and skolnirok = ?", array($_SESSION["id"], $predmet, $trida, $skupina, Config::getValueFromConfig("skolnirok_id")))[0][0] == 0) {
-            $dotaz = "INSERT INTO ucitele_odpovedi(id_p, trida, skupina, id_o, odpoved) VALUES";
+            $dotaz = "INSERT INTO ucitele_odpovedi(id_p, trida, skupina, id_o, odpoved, datum) VALUES";
             $skupina = urldecode($skupina);
             foreach ($_POST as $key => $value) {
                 if ($key != "Odeslat") {
-                    $dotaz = $dotaz . '("' . $predmet . '","' . $trida . '","' . $skupina . '",' . $key . ',"' . htmlspecialchars($value) . '"),';
+                    $dotaz = $dotaz . '("' . $predmet . '","' . $trida . '","' . $skupina . '",' . $key . ',"' . htmlspecialchars($value) . '","' . date('Y-m-d H:i:s') .'"),';
                 }
             }
 

@@ -41,16 +41,21 @@ foreach ($tridy as $trida) { //tisk vsech trid pomoci collapsible bootstrap kare
                         $predmetIdentifikator = $predmet["trida"] . '-' . $predmet["id_p"] . '-' . $predmet["id_u"] . '-' . $predmet["skupina"];
                 ?>
                         <div class="card mt-2">
-                            <div class="card-header collapsed btn" id="nadpis<?php echo $predmetIdentifikator; ?>" data-toggle="collapse" data-target="#obsah<?php echo $predmetIdentifikator; ?>" aria-expanded="false" aria-controls="obsah<?php echo $predmetIdentifikator; ?>">
-                            <div class=" mb-0 text-left d-inline-flex justify-content-between w-100">
-                                <h5>
-                                    <?php echo $predmet["id_p"] . ' - ' . $predmet["id_u"] . ' - ' . $predmet["skupina"]; ?>
-                                </h5>
-                                <h5>
-                                    <?php echo '<b>' . $predmet["vyplneno"] . '/' . $predmet["celkem"] . '</b>'; ?>
-                                </h5>
+                            <div class="card-header collapsed btn d-inline-flex h-100" id="nadpis<?php echo $predmetIdentifikator; ?>" data-toggle="collapse" data-target="#obsah<?php echo $predmetIdentifikator; ?>" aria-expanded="false" aria-controls="obsah<?php echo $predmetIdentifikator; ?>">
+                                <div class="ml-2 row justify-content-between w-100 h-100 align-items-center">
+                                    <h5>
+                                        <?php echo $predmet["id_p"] . ' - ' . $predmet["id_u"] . ' - ' . $predmet["skupina"]; ?>
+                                    </h5>
+                                    <div>
+                                        <h5>
+                                            <?php echo '<b>' . $predmet["vyplneno"] . '/' . $predmet["celkem"] . '</b>'; ?>
+                                        </h5>
+                                        <?php if($predmet["vyplneno"] > 0) {
+                                            echo '<a href="/administrace/student/prohlizeni/smaz/' . $predmetIdentifikator . '" class="btn btn-dark ml-2">Smaž odpovědi</a>';
+                                        } ?>
+                                    </div> 
+                                </div>
                             </div>
-                        </div>
                         <?php
                         if ($predmet["vyplneno"] > 0) {
                         ?>
