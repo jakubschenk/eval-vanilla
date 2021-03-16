@@ -1,6 +1,7 @@
 {
     "require": {
         "google/apiclient": "^2.7",
-        "steampixel/simple-php-router": "^0.4.1"
+        "steampixel/simple-php-router": "^0.4.1",
+        "phpoffice/phpspreadsheet": "^1.17"
     }
 }

@@ -173,3 +173,19 @@ Route::add('/administrace/nastaveni/zmenSkolniRok', function() {
     echo print_r($_POST);
     header("Location: /administrace/nastaveni");
 }, 'post');
+
+//EXPORT
+Route::add('/administrace/export', function() {
+    AdminExportController::view("AdministraceExport", "Export", []);
+    // new AdminExportController(null, null, null, 13);
+});
+
+Route::add('/administrace/export', function() {
+    $datum_od = ($_POST["datum_od"] == "")? null:$_POST["datum_od"];
+    $datum_do = ($_POST["datum_do"] == "")? null:$_POST["datum_do"];
+    $trida = ($_POST["trida"] == "all")? null:$_POST["trida"];
+    $skolnirok = $_POST["skolnirok"];
+    echo $datum_od . ' ' . $datum_do . ' ' . $trida . ' ' . $skolnirok;
+    $sheet = new AdminExportController($datum_od, $datum_do, $trida, $skolnirok);
+    unset($sheet);
+}, 'post');

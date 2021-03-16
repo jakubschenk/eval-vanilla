@@ -37,7 +37,7 @@
         <a id="closeMenu" class="closebtn btn">&times;</a>
         <a href="/administrace">Domů</a>
         <a href="/administrace/import">Import dat</a>
-        <a href="/administrace/import">Export dat</a>
+        <a href="/administrace/export">Export dat</a>
         <a href="/administrace/student/uzivatele/upravit">Upravit studenty</a>
         <a href="/administrace/ucitel/uzivatele/upravit">Upravit učitele</a>
         <a href="/administrace/student/otazky/upravit">Upravit otázky pro studenty</a>

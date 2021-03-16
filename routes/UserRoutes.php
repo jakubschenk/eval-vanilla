@@ -18,12 +18,12 @@ if (Cas::isPristup() == 1) {
   });
 
   Route::add('/fakelogin', function () {
-    $_SESSION['email'] = 'r.nowak@spseiostrava.cz';
-    $_SESSION['id'] = Ucitel::getId($_SESSION['email']);
-    $_SESSION['druh'] = 'ucitel';
-    //$_SESSION['email'] = 'm.scupak.st@spseiostrava.cz';
-    //$_SESSION['id'] = 1738;
-    //$_SESSION['druh'] = 'student';
+    // $_SESSION['email'] = 'r.nowak@spseiostrava.cz';
+    // $_SESSION['id'] = Ucitel::getId($_SESSION['email']);
+    // $_SESSION['druh'] = 'ucitel';
+    $_SESSION['email'] = 'm.scupak.st@spseiostrava.cz';
+    $_SESSION['id'] = 5296;
+    $_SESSION['druh'] = 'student';
     $_SESSION['access_token'] = "XD";
     header('Location: /');
   });
