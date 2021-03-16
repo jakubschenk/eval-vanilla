@@ -124,6 +124,11 @@ Route::add('/administrace/student/prohlizeni/smaz/([A-Za-z0-9-]*)', function($ob
         AdminProhlizeniController::smazOdpovediStudent($object);
 });
 
+Route::add('/administrace/ucitel/prohlizeni/smaz/([A-Za-z0-9-]*)', function($object) {
+    if(Administrator::authenticated())
+        AdminProhlizeniController::smazOdpovediUcitel($object);
+});
+
 //nastaveni
 Route::add('/administrace/nastaveni', function() {
     AdminSettingsController::view('AdministraceNastaveni', "Nastavení",

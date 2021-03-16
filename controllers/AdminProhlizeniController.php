@@ -63,6 +63,16 @@ class AdminProhlizeniController extends AdminController {
     }
     
     public static function smazOdpovediUcitel($objekt) {
-
+        $var = explode("-", $objekt);
+        $var[] = $_SESSION["viewedRok"];
+        Databaze::dotaz("UPDATE ucitele_odpovedi
+            SET smazano = 1 
+            WHERE trida LIKE ? AND id_p LIKE ? AND skupina LIKE ?
+            AND id_o in(select id from ucitele_otazky where skolnirok like ?)", $var);
+        Databaze::dotaz("UPDATE ucitele_predmety
+            SET vyplneno = 0
+            WHERE trida LIKE ? AND id_p LIKE ? AND skupina LIKE ? AND skolnirok like ?",
+            $var);
+        header("Location: /administrace/prohlizeni/ucitel");
     }
 }
