@@ -139,4 +139,46 @@ class Otazka
         Databaze::dotaz("INSERT INTO ucitele_otazky(poradi, otazka, druh, skolnirok)
                          SELECT poradi, otazka, druh, ? as skolnirok FROM ucitele_otazky WHERE skolnirok = ?", array($novyRok, $staryRok));
     }
+
+    public static function importDefaultOtazky() {
+        Databaze::dotaz("INSERT INTO studenti_otazky(poradi, skolnirok, otazka, druh) VALUES
+            (1, 1, 'ATMOSFÉRA;v jeho/jejích hodinách je dobrá atmosféra, cítím se vždy velmi dobře;většinou se necítím dobře', 'výběrová'),
+            (2, 1, 'POBÍDKA K PRÁCI;umí přimět třídu k práci příjemným způsobem;většinou se mu/ji nepodaří přimět třídu k práci', 'výběrová'),
+            (3, 1, 'PŘÍSTUP KE TŘÍDĚ;má pro žáky pochopení, umí se vcítit do pocitu žáků;je lhostejný/á k žákům', 'výběrová'),
+            (4, 1, 'ZÁJEM O PŘEDMĚT;předmět mne velice zajímá, problematice se věnuji i mimoškolně;nemám rád tento předmět', 'výběrová'),
+            (5, 1, 'REAKCE NA KRITIKU;je schopen/schopna přijmout kritiku svých hodin;nepřipouští jakoukoli kritiku svých hodin', 'výběrová'),
+            (6, 1, 'OZNÁMKUJTE SVÉ ZNALOSTI;jednička jako ve škole;pětka jako ve škole', 'výběrová'),
+            (7, 1, 'KONTROLA PRÁCE ŽÁKŮ;pravidelně kontroluje naši práci;nikdy nekontroluje naši práci', 'výběrová'),
+            (8, 1, 'TRPĚLIVOST;je trpělivý/á a nebojíme se jej/jí požádat o opakovaný výklad učiva;je netrpělivý/á, nerad/a znovu opakuje již probrané učivo', 'výběrová'),
+            (9, 1, 'VÝSLEDEK;v jeho/jejích hodinách se toho hodně naučím;v jeho/jejích hodinách se toho naučím málo', 'výběrová'),
+            (10, 1, 'PLÁNOVÁNÍ;vždy má hodinu přesně připravenou a vždy víme, co máme dělat;v hodinách často improvizuje, výuka je zmatená', 'výběrová'),
+            (11, 1, 'PODPORA SAMOSTATNÉHO UVAŽOVÁNÍ;nechává nás, abychom všechno, co můžeme. objevili sami;nikdy nám nezadává takové úkoly, při nichž musíme samostatně objevovat', 'výběrová'),
+            (12, 1, 'ELÁN;pracuje s velkým elánem;pracuje znuděně a jako by byl/a bez života', 'výběrová'),
+            (13, 1, 'VÝKLAD;vysvětluje látku jasně, stručně, drží se tématu, umí vysvětlovat;jeho/její výklad často nedává žádný smysl', 'výběrová'),
+            (14, 1, 'SPRAVEDLIVOST;hodnotí spravedlivě, přistupuje ke všem žákům stejně;nehodnotí spravedlivě, některým žákům nadržuje a jiné nemá v oblibě', 'výběrová'),
+            (15, 1, 'POMOC;bedlivě sleduje, zda někdo nemá problémy s jeho/jejím předmětem, a je vždy připraven/a pomoci;nezajímá ho/jí, že má někdo problémy s jeho/jejím předmětem', 'výběrová'),
+            (16, 1, 'PRŮBĚH HODINY;hospitovaná hodina proběhla naprosto standardní formou;hospitovaná hodina byla naprosto odlišná od standardní vyučovací hodiny', 'výběrová'),
+            (17, 1, 'Zde nám můžete stručně sdělit svůj názor. Akceptujeme pouze slušně vyjádřené podněty a připomínky.', 'otevřená');");
+
+        Databaze::dotaz("INSERT INTO ucitele_otazky(poradi,skolnirok, otazka, druh) VALUES
+            (1,1, 'ATMOSFÉRA;v této třídě se cítím vždy velmi dobře;v této třídě se cítím vždy špatně', 'výběrová'),
+            (2,1, 'PŘÍSTUP K PRÁCI;žáci jsou aktivní, soustředění a samostatní, pracují systematicky a s elánem;žáci jsou pasivní, je velmi těžké přimět je k práci, jen jednotlivci pracují', 'výběrová'),
+            (3,1, 'PŘÍSTUP K UČITELI;žáci jsou zdvořilí, otevření a přátelští;žáci zaujímají odmítavý postoj, někdy se u ních objeví projevy nepřátelství', 'výběrová'),
+            (4,1, 'ZÁJEM O PŘEDMĚT;žáci se aktivně snaží rozšiřovat si znalosti v daném oboru, účastní se soutěží, sledují i odbornou literaturu v daném předmětu apod.;žáci většinou nejsou připraveni, nejeví žádný zájem o můj předmět', 'výběrová'),
+            (5,1, 'REAKCE NA KRITIKU;žáci jsou schopni přijmout kritiku a snaží se o nápravu;žáci odmítají přijmout jakoukoli kritiku', 'výběrová'),
+            (6,1, 'OZNÁMKUJTE ZNALOSTI TŘÍDY;jednička jako ve škole;pětka jako ve škole', 'výběrová'),
+            (7,1, 'KONTROLA PRÁCE ŽÁKŮ;pravidelně kontroluji práci žáků; nikdy nekontroluji práci žáků', 'výběrová'),
+            (8,1, 'TRPĚLIVOST;rád vysvětlím stejné učivo opakovaně;opakování je ztráta času, někteří žáci nemají předpoklady ke studiu na naší škole', 'výběrová'),
+            (9,1, 'VÝSLEDEK;předpokládám, že se všichni žáci hodně naučí přímo v hodinách;předpokládám, že se všichni žáci musí především hodně učit doma, aby zvládli látku mých hodin', 'výběrová'),
+            (10,1, 'PLÁNOVÁNÍ;hodinu mám předem přesně rozvrženou na časové úseky s daným obsahem práce, pravidelně kontroluji soulad s tématickými plány;hodinu neplánuji, dávám přednost improvizaci, tématické plány nejsou zavazující', 'výběrová'),
+            (11,1, 'PODPORA SAMOSTATNÉHO UVAŽOVÁNÍ;nechávám na žácích, aby všechno, co můžou objevili sami;nikdy nezadávám takové úkoly, naši žáci neumí nic samostatně objevit', 'výběrová'),
+            (12,1, 'ZDE NÁM MŮŽETE SDĚLIT NÁZOR NA PŘÍSLUŠNOU TŘÍDU/SKUPINU ŽÁKŮ', 'otevřená');");
+
+        //$query = str_replace(array("\n", "\r"), '', file_get_contents('default_questions.sql')); //NEVIM NECHAPU
+        //print_r($query);
+        // $query = file_get_contents('default_questions.sql');
+        // Databaze::dotaz($query);
+
+        //pokus ze souboru, ale php neco dela a ja nevim co a nefunguje to...
+    }
 }

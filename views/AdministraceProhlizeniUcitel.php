@@ -3,7 +3,7 @@ if (!isset($_SESSION["viewedRok"])) {
     $_SESSION["viewedRok"] = Config::getValueFromConfig("skolnirok_id");
 }
 ?>
-<h3>Prohlížení odpovědí studentů</h3>
+<h3>Prohlížení odpovědí učitelů</h3>
 <label for="selectRok" class="mb-2">Vyberte rok pro zobrazení:</label>
 <select id="selectRok" class="form-control">
     <?php

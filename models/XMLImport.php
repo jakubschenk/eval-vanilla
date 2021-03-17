@@ -22,7 +22,11 @@ class XMLImport {
             $this->nahrajPredmety($data->Predmety);
             $this->nahrajUcitele($data->Ucitele);
             $this->nahrajStudenty($data->Studenti);
-            Otazka::prenesOtazky($staryRok, $this->skolnirok_id); //preneseni otazek z minuleho roku
+            if($staryRok == null) {
+                Otazka::importDefaultOtazky();
+            } else {
+                Otazka::prenesOtazky($staryRok, $this->skolnirok_id); //preneseni otazek z minuleho roku
+            }
 
             fwrite($this->logfile, date("Ymd_h-i-s") . " IMPORT DOKONCEN\n");
             set_time_limit(120);

@@ -1,6 +1,6 @@
 <?php
 $druh = $args[0];
-if(Cas::isPristup()) {
+if(Cas::isPristup() == 1) {
     echo '<h2>V době hodnocení nelze měnit otázky!</h2>';
 } else {
     if($druh == 'student') {
