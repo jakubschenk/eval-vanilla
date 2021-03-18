@@ -20,7 +20,7 @@ class AdminProhlizeniController extends AdminController {
         
         $j_od = json_encode($odpoved);
         
-        header("application/json");
+        header("Content-Type: application/json");
         echo $j_od;
     }
 
@@ -44,7 +44,7 @@ class AdminProhlizeniController extends AdminController {
 
         $j_od = json_encode($odpoved);
         
-        header("application/json");
+        header("Content-Type: application/json");
         echo $j_od;
     }
 

@@ -22,24 +22,24 @@ class AdminController {
                     $_SERVER['REQUEST_URI'] == '/administrace/importing' ||    //když nemá zvolenou databázi, nebo dokonce žádnou!
                     $_SERVER['REQUEST_URI'] == '/administrace/nastaveni') {    //možnost zvolení již importované databáze
                     $pageName = $title;
-                    require_once 'templates/adminHeader.php';
-                    require_once 'views/'. $name . '.php';
-                    require_once 'templates/adminFooter.php';
+                    require_once $_SERVER["DOCUMENT_ROOT"].'/templates/adminHeader.php';
+                    require_once $_SERVER["DOCUMENT_ROOT"].'/views/'. $name . '.php';
+                    require_once $_SERVER["DOCUMENT_ROOT"].'/templates/adminFooter.php';
                 } else {
                     header("Location: /administrace/import");
                 }               
             } else {
                 $pageName = $title;
-                require_once 'templates/adminHeader.php';
-                require_once 'views/'. $name . '.php';
-                require_once 'templates/adminFooter.php';
+                require_once $_SERVER["DOCUMENT_ROOT"].'/templates/adminHeader.php';
+                require_once $_SERVER["DOCUMENT_ROOT"].'/views/'. $name . '.php';
+                require_once $_SERVER["DOCUMENT_ROOT"].'/templates/adminFooter.php';
             }
         } else {
-            require_once 'views/AdministraceLogin.php';
+            require_once $_SERVER["DOCUMENT_ROOT"].'/views/AdministraceLogin.php';
         }        
     }
 
     public static function viewStatic($name) {
-        require_once 'views/'.$name.'.php';
+        require_once $_SERVER["DOCUMENT_ROOT"].'/views/'.$name.'.php';
     }
 }

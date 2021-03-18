@@ -58,12 +58,11 @@ class OtazkyController extends Controller
             $trida = Databaze::dotaz("SELECT trida from studenti where id = ? and skolnirok = ?", array($_SESSION["id"], Config::getValueFromConfig("skolnirok_id")));
             foreach ($_POST as $key => $value) {
                 if ($key != "Odeslat") {
-                    $dotaz = $dotaz . '("' . $predmet . '","' . $ucitel . '",' . $key . ',"' . $trida[0]["trida"] . '","' . $skupina[0]["skupina"] . '","' . htmlspecialchars($value) . '","' . date('Y-m-d H:i:s') .'"),';
+                    $dotaz = $dotaz . '("' . $predmet . '","' . $ucitel . '",' . $key . ',"' . $trida[0]["trida"] . '","' . $skupina[0]["skupina"] . '","' . utf8_encode(str_replace(array("\n", "\r","\'", "\""), " ", htmlspecialchars($value))) . '","' . date('Y-m-d H:i:s') .'"),';
                 }
             }
 
             $dotaz = rtrim($dotaz, ',');
-            print_r($dotaz);
             Databaze::dotaz($dotaz, array());
             Databaze::dotaz("UPDATE studenti_predmety SET vyplneno = 1 WHERE id_s = ? AND id_p LIKE ? AND id_u LIKE ? AND skolnirok = ?", array($_SESSION["id"], $predmet, $ucitel, Config::getValueFromConfig("skolnirok_id")));
         }
@@ -82,7 +81,6 @@ class OtazkyController extends Controller
             }
 
             $dotaz = rtrim($dotaz, ',');
-            print_r($dotaz);
             Databaze::dotaz($dotaz, array());
             Databaze::dotaz("UPDATE ucitele_predmety SET vyplneno = 1 WHERE id_u = ? AND id_p LIKE ? AND trida LIKE ? AND skupina LIKE ? AND skolnirok = ?", array($_SESSION["id"], $predmet, $trida, $skupina, Config::getValueFromConfig("skolnirok_id")));
 
