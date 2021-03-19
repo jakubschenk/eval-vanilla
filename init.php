@@ -20,7 +20,7 @@ try {
   Databaze::pripoj('localhost', 'eval_vanilla', 'root', '');
 } catch(PDOException $e) {
   echo 'Nemáte importovanou databázi!';
-  die(); 
+  die();
 }
 session_start();
 

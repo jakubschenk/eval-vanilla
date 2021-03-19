@@ -12,10 +12,10 @@ class Ucitel extends Uzivatel {
 
         $exists = Databaze::dotaz("SELECT * FROM ucitele WHERE id LIKE ?", array($zkratka));
         if($exists != array()) {
-            Databaze::dotaz("UPDATE ucitele SET skolnirok = ? WHERE id LIKE ?", array($skol_rok, $zkratka)); 
+            Databaze::dotaz("UPDATE ucitele SET skolnirok = ? WHERE id LIKE ?", array($skol_rok, $zkratka));
         } else {
             Databaze::dotaz("INSERT INTO ucitele(id, jmeno, prijmeni, titul, email, skolnirok) VALUES(?,?,?,?,?,?)",
-                array($zkratka, $jmeno, $prijmeni, $titul, $email, $skol_rok));               
+                array($zkratka, $jmeno, $prijmeni, $titul, $email, $skol_rok));
         }
         Ucitel::propojPredmety($data);
     }
@@ -32,21 +32,22 @@ class Ucitel extends Uzivatel {
             $dotaz = rtrim($dotaz, ',');
             //print_r($dotaz);
             Databaze::dotaz($dotaz, array());
-        } 
+        }
     }
 
     public static function updateAndCheckUser($user_data) {
 
         $ucitel = new Ucitel($user_data);
-        
-        $exists = Databaze::dotaz("SELECT * FROM ucitele WHERE email LIKE ?", [$ucitel->getEmail()]);
+
+        $exists = Databaze::dotaz("SELECT * FROM ucitele WHERE email LIKE ? and skolnirok LIKE ?",
+				[$ucitel->getEmail(), Config::getSkolniRok()]);
         // prvni se musime podivat, jestli je uzivatel v seznamu uzivatelu
         if($exists) {
-            $databaze_profil = Databaze::dotaz("SELECT * FROM ucitele WHERE gid LIKE ?", [$ucitel->getGid()]);
+            $databaze_profil = Databaze::dotaz("SELECT * FROM ucitele WHERE gid LIKE ? AND skolnirok LIKE ?", [$ucitel->getGid(), Config::getSkolniRok()]);
             //doplneni informaci
             if(empty($databaze_profil)) { 
-                Databaze::vloz("INSERT INTO ucitele(gid, avatar) VALUES(?,?)",
-                    array($ucitel->getGid(), $ucitel->getObrazek()));
+                Databaze::dotaz("UPDATE ucitele SET gid = ?, avatar = ? where email LIKE ?",
+                    array($ucitel->getGid(), $ucitel->getObrazek(), $ucitel->getEmail()));
             } else {
                 Databaze::dotaz("UPDATE ucitele SET avatar = ? WHERE email LIKE ?", array($ucitel->getObrazek(), $ucitel->getEmail()));
             }
