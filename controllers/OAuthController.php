@@ -52,7 +52,7 @@ class OAuthController extends Controller {
             $_SESSION = array();
             session_destroy();
             $this->client->revokeToken();
-            $error_uri = $this->root_uri . '/unauthorized';
+            $error_uri = $this->root_uri . '/unauthorized?email='.$user_data["email"];
             header('Location: ' . filter_var($error_uri, FILTER_SANITIZE_URL));
           }
         }
