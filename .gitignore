@@ -12,3 +12,4 @@ example.php
 exports
 default_questions.sql
 composer.phar
+config.json

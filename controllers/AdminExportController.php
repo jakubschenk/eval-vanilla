@@ -40,7 +40,6 @@ class AdminExportController extends AdminController {
         $this->printDataUcitel();
         $this->saveSheet();
 
-        print_r($this->dataUcitel);
         header("Location: /administrace/export");
         header("Location: /".$this->filename);
     }
