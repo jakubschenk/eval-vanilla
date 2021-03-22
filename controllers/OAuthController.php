@@ -23,16 +23,17 @@ class OAuthController extends Controller {
   }
 
   public function authUserFromRedirect() {
-    if (isset($_GET['code'])) { // google presmerovava na zpatky na redirect page s kodem
+    if (isset($_GET['code'])) {                                       // google presmerovava na zpatky na redirect page s kodem
       $this->client->fetchAccessTokenWithAuthCode($_GET['code']);
-      if ($this->client->getAccessToken()) { // zjistujeme jestli jsme dostali access token
+      if ($this->client->getAccessToken()) {                          // zjistujeme jestli jsme dostali access token
         $_SESSION['access_token'] = $this->client->getAccessToken();
-        $objOAuthService = new Google_Service_Oauth2($this->client); // potrebujeme vytvorit objekt oauth2 pro ziskani dat o uzivateli
+        $objOAuthService = new Google_Service_Oauth2($this->client);  // potrebujeme vytvorit objekt oauth2 pro ziskani dat o uzivateli
+                                                                      // proto jsme pridavali scopes
         $user_data = $objOAuthService->userinfo->get();
     
-        if($user_data) {
+        if($user_data) {                                              // jestlize nam google vrati nejaka data musime zjistit, o jakeho uzivatele jde
           if(Uzivatel::typChooser($user_data["email"]) == 'ucitel') {
-              $exists = Ucitel::updateAndCheckUser($user_data);
+              $exists = Ucitel::updateAndCheckUser($user_data);       // nase overovani uzivatele
               $_SESSION["druh"] = "ucitel";
           } else {
               $exists = Student::updateAndCheckUser($user_data); 

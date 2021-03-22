@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="BakalariImport">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="SkolniRok" type="xs:string" />
+        <xs:element name="Datum" type="xs:date" />
+        <xs:element name="Cas" type="xs:string" />
+        <xs:element name="Predmety">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" name="Predmet">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Zkratka" type="xs:string" />
+                    <xs:element name="Nazev" type="xs:string" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Studenti">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Student">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Jmeno" type="xs:string" />
+                    <xs:element name="Prijmeni" type="xs:string" />
+                    <xs:element name="Email" type="xs:string" />
+                    <xs:element name="Trida" type="xs:string" />
+                    <xs:element name="Predmety">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element maxOccurs="unbounded" name="Predmet">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="Zkratka" type="xs:string" />
+                                <xs:element minOccurs="0" name="Nazev" type="xs:string" />
+                                <xs:element name="Ucitel" type="xs:string" />
+                                <xs:element name="Skupina" type="xs:string" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Ucitele">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" name="Ucitel">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Jmeno" type="xs:string" />
+                    <xs:element name="Prijmeni" type="xs:string" />
+                    <xs:element name="Titul" type="xs:string" />
+                    <xs:element name="Email" type="xs:string" />
+                    <xs:element name="Trida" type="xs:string" />
+                    <xs:element name="Predmety">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Predmet">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="Zkratka" type="xs:string" />
+                                <xs:element name="Trida" type="xs:string" />
+                                <xs:element maxOccurs="unbounded" name="Skupina" type="xs:string" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

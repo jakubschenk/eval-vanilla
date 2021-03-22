@@ -21,7 +21,6 @@ class AdminImportController extends AdminController{
         $this->import = new XMLImport($this->xml_filepath, $this->logfile);
     }
 
-
     public function nahratSoubor() {
         if(isset($_FILES['xmlfile'])) {
             $file_name = $_FILES['xmlfile']['name'];
