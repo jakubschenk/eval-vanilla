@@ -12,15 +12,15 @@
                     <form action="/administrace/nastaveni/zmenSkolniRok" method="post">
                         <label for="skolnirok">Vybrat školní rok: </label>
                         <select id="skolnirok" name="skolnirok" class="form-control">
-                        <?php
+                            <?php
                             $skolniroky = Databaze::dotaz("SELECT * from skolniroky");
-                            foreach($skolniroky as $skolnirok) {
-                                if($skolnirok["idr"] == Config::getSkolniRok()) 
+                            foreach ($skolniroky as $skolnirok) {
+                                if ($skolnirok["idr"] == Config::getSkolniRok())
                                     echo '<option value="' . $skolnirok["idr"] . '"selected>' . $skolnirok["idr"] . ' - ' . $skolnirok["rok"] . '</option>';
                                 else
                                     echo '<option value="' . $skolnirok["idr"] . '">' . $skolnirok["idr"] . ' - ' . $skolnirok["rok"] . '</option>';
                             }
-                        ?>
+                            ?>
                         </select>
                         <input type="submit" class="btn btn-dark mt-2" id="zmenRokBtn" value="Změn aktivní rok!"></input>
                     </form>
@@ -34,16 +34,21 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="datum_od">Přístup od: </label>
-                    <input type="datetime-local" id="datum_od" name="datum_od" class="form-control" value="<?php $myvar;
-                                                                                                            if (($myvar = Config::getValueFromConfig("pristup_od")) != null) {
-                                                                                                                echo $myvar;
-                                                                                                            } ?>">
+                    <input type="datetime-local" id="datum_od" name="datum_od" class="form-control" value="<?php
+                        $myvar;
+                        if (($myvar = Config::getValueFromConfig("pristup_od")) != null) {
+                            echo $myvar;
+                        }
+                    ?>">
                     <label class="mt-2" for="datum_do">Přístup do: </label>
-                    <input type="datetime-local" id="datum_do" name="datum_do" class="form-control" value="<?php $myvar;
-                                                                                                            if (($myvar = Config::getValueFromConfig("pristup_do")) != null) {
-                                                                                                                echo $myvar;
-                                                                                                            } ?>">
-                    <button class="btn btn-dark mt-2" type="button" id="zmenDatumBtn">Změň datum přístupu!</button>
+                    <input type="datetime-local" id="datum_do" name="datum_do" class="form-control" value="<?php
+                        $myvar;
+                        if (($myvar = Config::getValueFromConfig("pristup_do")) != null) {
+                            echo $myvar;
+                        } 
+                    ?>">
+                    <button class="btn btn-dark mt-2" type="button" id="zmenDatumBtn">Změň datum přístupu</button>
+                    <button class="btn btn-dark mt-2" type="button" id="smazPristupBtn">Vypnout přístup</button>
                 </div>
             </div>
         </div>

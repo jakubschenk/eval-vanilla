@@ -25,7 +25,31 @@ $(document).ready(function() {
                 .catch(err => console.log(err));
         } else {
             alert("Zadejte správné datum!");
-        } 
+        }
+        $('.container.obsah').prepend('<div class="alert alert-primary" role="alert">'
+            + 'Datum přístupu bylo změněno!'
+            + '</div>');
+        $(window).scrollTop(0);
+    });
+
+    $('#smazPristupBtn').click(async function() {
+        var smaz = {}; //tohle je hack, jelikoz json bude prazdny, datum_od a datum_do se nastavi na null
+
+            await fetch('nastaveni/zmenDatum', {
+                method: "POST",
+                mode: "same-origin",
+                credentials: "same-origin",
+                headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(smaz)
+            })
+                .then(response => console.log(response))
+                .catch(err => console.log(err));
+        $('.container.obsah').prepend('<div class="alert alert-primary" role="alert">'
+            + 'Datum přístupu bylo smazáno!'
+            + '</div>');
+        $(window).scrollTop(0);
     }); 
 
     $('#zmenHesloBtn').click(async function() {
