@@ -1,3 +1,13 @@
+<?php
+        if(AdminUzivateleEditController::vratDuplikaty() != null) {
+                ?>
+                <div class="alert alert-danger" role="alert">
+                Pro tento rok máte duplikáty, prosím vyřeště je v <a href="/administrace/student/uzivatele/upravit" class="alert-link">Úpravě uživatelů</a>!
+                </div>
+                <?php
+        }
+?>
+
 <h2>Administrace</h2>
 <div class="container">
         <h5>Status: </h5>

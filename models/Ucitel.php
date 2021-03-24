@@ -64,7 +64,7 @@ class Ucitel extends Uzivatel {
     }
 
     public static function vratUcitele() {
-        return Databaze::dotaz("SELECT * from ucitele where skolnirok like ? order by id asc", array(Config::getValueFromConfig('skolnirok_id')));
+        return Databaze::dotaz("SELECT * from ucitele order by id asc");
     }
 
     public static function vratPocetVyplnenychDotazniku($skolnirok) {
