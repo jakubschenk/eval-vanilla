@@ -99,4 +99,8 @@ $(document).ready(function() {
         location.reload();
     }
 
+    if(!Modernizr.inputtypes['datetime-local']) {
+        $('input[type=datetime-local]').datetimepicker();
+    }
+
 });
