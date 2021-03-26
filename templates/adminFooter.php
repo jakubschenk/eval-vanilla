@@ -5,6 +5,7 @@
 <script src="/public/js/jquery.datetimepicker.js"></script>
 <script src="/public/js/modernizr-custom.js"></script>
 <script src="/public/js/sidePanel.js"></script>
+<script src="/public/js/support.js"></script>
 <?php
 if(isset($args["js"])) {
     foreach($args["js"] as $js) {

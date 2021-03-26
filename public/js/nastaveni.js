@@ -98,11 +98,4 @@ $(document).ready(function() {
 
         location.reload();
     }
-
-    if(!Modernizr.inputtypes['datetime-local']) {
-        $('#datum_od').datetimepicker();
-	$('#datum_do').datetimepicker();
-	console.log("ree");
-    }
-
 });
