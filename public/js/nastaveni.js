@@ -100,7 +100,9 @@ $(document).ready(function() {
     }
 
     if(!Modernizr.inputtypes['datetime-local']) {
-        $('input[type=datetime-local]').datetimepicker();
+        $('#datum_od').datetimepicker();
+	$('#datum_do').datetimepicker();
+	console.log("ree");
     }
 
 });

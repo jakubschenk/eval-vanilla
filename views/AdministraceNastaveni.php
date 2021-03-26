@@ -38,14 +38,18 @@
                         $myvar;
                         if (($myvar = Config::getValueFromConfig("pristup_od")) != null) {
                             echo $myvar;
-                        }
+                        } else {
+			    echo " ";
+			}
                     ?>">
                     <label class="mt-2" for="datum_do">Přístup do: </label>
                     <input type="datetime-local" id="datum_do" name="datum_do" class="form-control" value="<?php
                         $myvar;
                         if (($myvar = Config::getValueFromConfig("pristup_do")) != null) {
                             echo $myvar;
-                        } 
+                        } else {
+			    echo " ";
+			}
                     ?>">
                     <button class="btn btn-dark mt-2" type="button" id="zmenDatumBtn">Změň datum přístupu</button>
                     <button class="btn btn-dark mt-2" type="button" id="smazPristupBtn">Vypnout přístup</button>
