@@ -40,7 +40,7 @@ class Ucitel extends Uzivatel {
         $ucitel = new Ucitel($user_data);
 
         $exists = Databaze::dotaz("SELECT * FROM ucitele WHERE email LIKE ?",
-				[$ucitel->getEmail(), Config::getSkolniRok()]);
+				[$ucitel->getEmail()]);
         // prvni se musime podivat, jestli je uzivatel v seznamu uzivatelu
         if($exists) {
             $databaze_profil = Databaze::dotaz("SELECT * FROM ucitele WHERE gid LIKE ?", [$ucitel->getGid()]);
@@ -49,7 +49,7 @@ class Ucitel extends Uzivatel {
                 Databaze::dotaz("UPDATE ucitele SET gid = ?, avatar = ? where email LIKE ?",
                     array($ucitel->getGid(), $ucitel->getObrazek(), $ucitel->getEmail()));
             } else {
-                Databaze::dotaz("UPDATE ucitele SET avatar = ? WHERE email LIKE ?", array($ucitel->getObrazek()));
+                Databaze::dotaz("UPDATE ucitele SET avatar = ? WHERE email LIKE ?", array($ucitel->getObrazek(), $ucitel->getEmail()));
             }
             $_SESSION["typ"] = 1;
             return $ucitel;
