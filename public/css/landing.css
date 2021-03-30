@@ -95,10 +95,13 @@ html, body{
     -webkit-animation-fill-mode: forwards;
     -moz-animation: fadeIn ease 2s;
     -moz-animation-delay: 2s;
+    -moz-animation-fill-mode: forwards;
     -o-animation: fadeIn ease 2s;
     -o-animation-delay: 2s;
+    -o-animation-fill-mode: forwards;
     -ms-animation: fadeIn ease 2s;
     -ms-animation-delay: 2s;
+    -ms-animation-fill-mode: forwards;
 }
 
 .text {
